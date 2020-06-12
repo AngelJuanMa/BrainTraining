@@ -1,0 +1,97 @@
+@media screen and (min-width: 550px)
+    input[type=text]
+        width: 40% !important
+
+
+@media screen and (max-width: 1025px)
+
+    .menu
+        display: block !important
+
+    .visible
+        display: none
+
+@media screen and (min-width: 1200px)
+    input[type=text]
+        width: 20% !important
+
+#header
+    overflow: hidden
+    height: 50px
+    background: #1c355a
+
+    img
+        width: 50px
+        height: 100%
+        display: block
+        float: left
+
+    input[type=text]
+        width: 60%
+        height: 20px
+        margin-top: 13px
+        border: none
+        border-radius: 9px
+        margin-right: auto
+        margin-left: auto
+        display: flex
+
+    input[type=text]:focus
+        border: 2px solid dodgerblue
+
+    .icons
+        cursor: pointer
+        margin-left: 1%
+        width: 45px
+        height: 21px
+        color: #abaeb1
+        float: right
+        margin-top: 14px
+        transition: 0.4s
+
+    .icons:hover
+        color: #828588
+
+    .menu
+        display: none
+        margin-left: 0 !important
+        margin-right: 0.5%
+
+#menu
+
+    display: flex
+    align-items: end
+    justify-content: flex-end
+
+    #move
+        position: absolute
+        margin-top: 50px
+        background: #1c355a
+        height: 0 !important
+        transition: 1s
+        border-radius: 1px 0px 30px 30px
+        width: 50px
+
+    .iconMenu
+        cursor: pointer
+        margin-top: 20px
+        margin-left: 4px
+        width: 45px
+        height: 21px
+        color: #abaeb1
+        transition: 0.4s
+
+    .iconMenu:hover
+        color: #828588
+
+@media (prefers-reduced-motion: no-preference)
+    #logo
+        animation: App-logo-spin infinite 20s linear
+
+
+@keyframes App-logo-spin
+    from
+        transform: rotate(0deg)
+
+    to
+        transform: rotate(360deg)
