@@ -33,7 +33,7 @@ class Header extends Component {
     let user = true;
 
     return (
-      <React.Fragment>
+      <React.Fragment> 
         { this.state.menu &&
           <div id="menu">
             <div id="move" ref={this.myRef}>
