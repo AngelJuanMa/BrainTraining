@@ -1,31 +1,33 @@
 @media screen and (max-width: 450px)
-    #loginComponent
-        h1
-            font-size: 20px !important
-            line-height: 25px !important
-            font-weight: 500 !important
-        
-        input[type=submit]
-            width: 250px !important
+    #registerComponent
+        #loginComponent
+            h1
+                font-size: 20px !important
+                line-height: 25px !important
+                font-weight: 500 !important
+
+            input[type=submit]
+                width: 250px !important
 
 @media screen and (max-width: 290px)
-    #loginComponent
-        h1
-            font-size: 15px !important
-            line-height: 20px !important
-            font-weight: 400 !important
-        
-        input[type=submit]
-            width: 200px !important
-    
-#loginComponent
+    #registerComponent
+        #loginComponent
+            h1
+                font-size: 15px !important
+                line-height: 20px !important
+                font-weight: 400 !important
+
+            input[type=submit]
+                width: 200px !important
+
+#registerComponent
     background: white
     display: table
     margin-left: auto
     margin-right: auto
     height: 500px
     width: 25%
-    margin-top: -120px
+    margin-top: 10px
 
     h1
         text-align: center
@@ -33,10 +35,9 @@
         line-height: 30px
         color: rgba(0, 0, 0, 0.8)
         font-weight: 600
-        margin: 2.67em 0
+        margin: 1em 0
 
-    #createAccount
-        color: #3483fa
+    #loginDiv
         font-weight: 600
         font-size: 18px
         width: 296px
@@ -49,7 +50,12 @@
         align-items: center
         transition: 0.4s
 
+        #loginhref
+            color: #2162c4
+            padding-left: 3px
+
     input[type=email],
+    input[type=text],
     input[type=password],
     input[type=submit]
         margin: auto
@@ -57,6 +63,7 @@
         margin-top: 50px !important
 
     input[type=email],
+    input[type=text],
     input[type=password]
         background: white
         border: none
@@ -65,6 +72,8 @@
 
     input[type=email]:hover,
     input[type=email]:focus,
+    input[type=text]:hover,
+    input[type=text]:focus,
     input[type=password]:hover,
     input[type=password]:focus
         border-bottom: 2px solid #3483fa
@@ -83,8 +92,7 @@
         background: #2162c4
         transform: scale(1.2)
 
-    #createAccount:hover,
-    #createAccount:focus
-        color: #2162c4
+    #loginDiv:hover,
+    #loginDiv:focus
         border: 4px solid #d4d4d4dc
-        transform: scale(1.2)
+        transform: scale(1.1)

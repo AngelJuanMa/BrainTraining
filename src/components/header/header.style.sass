@@ -2,36 +2,24 @@ $iconsColor: #62d7f6
 $iconsColorHover: #368296
 
 @media screen and (min-width: 550px)
-    input[type=text]
-        width: 35% !important
+    #header
+        input[type=text]
+            width: 35% !important
 
 @media screen and (max-width: 1025px)
-    .menu
-        display: block !important
+    #header
+        .menu
+            display: block !important
 
-    .visible
-        display: none
-    #logIn
-        margin-top: 16px !important
+        .visible
+            display: none
+        #logIn
+            margin-top: 16px !important
 
 @media screen and (max-width: 1200px)
-    #logIn
-        margin-top: 16px !important
-
-@media screen and (min-width: 1200px)
     #header
-        height: 60px !important
-
-        input[type=text]
-            width: 18% !important
-            margin-left: 40.7% !important
-            margin-top: 17px !important
-
-        .icons
-            margin-top: 19px !important
-
-        .iconlogIn
-            margin-right: 20px !important
+        #logIn
+            margin-top: 16px !important
 
 #header
     overflow: hidden
@@ -47,9 +35,10 @@ $iconsColorHover: #368296
         
     img
         width: 50px
-        height: 100%
+        height: 40px
         display: block
         float: left
+        margin-top: 5px
 
     input[type=text]
         width: 40%
@@ -87,6 +76,8 @@ $iconsColorHover: #368296
 
     .iconlogIn
         margin-left: 0 !important
+
+    
 
 #menu
 
@@ -142,3 +133,24 @@ $iconsColorHover: #368296
 
     to
         opacity: 1
+
+.login
+        height: 250px !important
+
+@media screen and (min-width: 1200px)
+    #header
+        height: 60px
+
+        input[type=text]
+            width: 18% !important
+            margin-left: 40.7% !important
+            margin-top: 17px !important
+
+        .icons
+            margin-top: 19px !important
+
+        .iconlogIn
+            margin-right: 20px !important
+
+        img
+            margin-top: 8px !important

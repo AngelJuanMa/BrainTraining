@@ -4,9 +4,9 @@ class Footer extends Component {
   render() {
     return (
       <React.Fragment>
-        <nav>
+        <footer>
           <p>©Ángel Juan Manuel Carballo</p>
-        </nav>
+        </footer>
       </React.Fragment>
     );
   }
