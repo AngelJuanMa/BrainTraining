@@ -32,7 +32,7 @@ class Header extends Component {
     let user = false;
     var dirr = window.location.href;
     dirr = dirr.split("/");
-    dirr = dirr[3];
+    dirr = dirr[5];
     
     if(dirr === "login" || dirr === "registro") var LogOrReg = true
     console.log(LogOrReg === true)
