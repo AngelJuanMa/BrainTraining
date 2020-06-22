@@ -52,7 +52,7 @@ class Header extends Component {
         {this.state.menu && (
           <div id="menu">
             <div id="move">
-              <FontAwesomeIcon className="iconMenu" icon={faSignOutAlt} />
+              <FontAwesomeIcon className="iconMenu"  onClick={this.signOut} icon={faSignOutAlt} />
               <FontAwesomeIcon className="iconMenu" icon={faShoppingCart} />
               <FontAwesomeIcon className="iconMenu" icon={faShoppingBasket} />
               <FontAwesomeIcon className="iconMenu" icon={faComments} />
