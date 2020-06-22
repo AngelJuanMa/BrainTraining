@@ -26,13 +26,16 @@ class Header extends Component {
 
   signOut = () => {
     localStorage.removeItem("identity");
-    this.setState({ identity: false });
+    this.setState({
+      menu: false,
+      identity: false
+    });
   };
 
   clicked = (e) => {
     var value = this.state.menu === false ? true : false;
     this.setState({
-      menu: value,
+      menu: value
     });
   };
 
