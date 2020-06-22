@@ -43,6 +43,7 @@ class Header extends Component {
   render() {
     var dirr = window.location.href;
     dirr = dirr.split("/");
+    console.log(dirr)
     dirr = dirr[5];
 
     if (dirr === "login" || dirr === "registro") var LogOrReg = true;
