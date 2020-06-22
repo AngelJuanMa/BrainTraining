@@ -12,14 +12,23 @@ import {
   faSearch,
   faSignInAlt,
 } from "@fortawesome/free-solid-svg-icons";
+import Nav from "../nav/nav.component.jsx";
 
 class Header extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      menu: false,
+      identity: false,
+    };
   }
-  state = {
-    menu: false,
+
+  signOut = () => {
+    localStorage.removeItem("identity");
+    this.setState({ identity: false });
   };
+
   clicked = (e) => {
     var value = this.state.menu === false ? true : false;
     this.setState({
@@ -27,15 +36,16 @@ class Header extends Component {
     });
   };
 
-  render(props) {
-    
-    let user = false;
+  componentWillMount() {
+    if (localStorage.getItem("identity")) this.setState({ identity: true });
+  }
+
+  render() {
     var dirr = window.location.href;
     dirr = dirr.split("/");
     dirr = dirr[5];
-    
-    if(dirr === "login" || dirr === "registro") var LogOrReg = true
-    console.log(LogOrReg === true)
+
+    if (dirr === "login" || dirr === "registro") var LogOrReg = true;
     return (
       <React.Fragment>
         {this.state.menu && (
@@ -54,13 +64,16 @@ class Header extends Component {
           ref={this.header}
           className={dirr === "login" && "login"}
         >
-          <img src={logo} id="logo" alt="" />
-          {LogOrReg !== true &&(
+          <NavLink to="/">
+            <img src={logo} id="logo" alt="" />
+          </NavLink>
+          {LogOrReg !== true && (
             <React.Fragment>
-              {user ? (
+              {this.state.identity ? (
                 <React.Fragment>
                   <FontAwesomeIcon
                     className="icons visible"
+                    onClick={this.signOut}
                     icon={faSignOutAlt}
                   />
                   <FontAwesomeIcon
@@ -97,6 +110,7 @@ class Header extends Component {
             </React.Fragment>
           )}
         </div>
+        {!LogOrReg && <Nav></Nav>}
       </React.Fragment>
     );
   }
