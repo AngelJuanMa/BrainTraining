@@ -16,12 +16,15 @@ class Login extends Component {
       puntuacion: 0,
       identity: user,
       ver: true,
-      clear: false
+      clear: false,
+      start: false,
+      stop: 0
     };
   }
 
   answer = React.createRef();
   name = React.createRef();
+  velocidad = React.createRef();
 
   incrementNumber = (e) => {
     var cantidadDeNumeros = this.state.numerosCant;
@@ -59,7 +62,8 @@ class Login extends Component {
     this.setState({
       puntuacion: 0,
       mal: 0,
-      bien: 0
+      bien: 0,
+      start: true
     })
   }
 
@@ -71,40 +75,62 @@ class Login extends Component {
   }
 
   marckRecord = (e) => {
-    console.log('hola')
+    this.setState({
+      start: false
+    })
     if (this.state.puntuacion > this.state.identity.record) {
       this.state.identity.record = this.state.puntuacion;
       localStorage.setItem('identity', JSON.stringify(this.state.identity))
     }
-    console.log(this.state.identity)
   }
 
   signIn = (e) => {
     e.preventDefault();
+
+    var stop = this.state.bien + Math.abs(this.state.mal);
+    this.setState({
+      stop: stop
+    })
     const timerVal = setTimeout(() => {
-      this.setState({ ver: false })
-    }, 1000);
+      if (stop === this.state.stop) this.setState({ ver: false })
+    }, this.state.identity.velocidad);
+
+
     var res = this.answer.current.value
     if (res == this.state.num.join('')) {
+      var value = (this.state.puntuacion + (this.state.numerosCantActual * 10) / (this.state.identity.velocidad / 1000))
+      value = Math.round(value);
       this.setState({
         bien: this.state.bien + 1,
-        puntuacion: this.state.puntuacion + (this.state.numerosCantActual * 10),
+        puntuacion: value,
         clear: true
       });
     }
     else this.setState({
       mal: this.state.mal + 1,
-      puntuacion: this.state.puntuacion - 20,
       clear: true
     });
     this.randomNumber();
+  }
+
+  aumentarVelocidad = (e) => {
+    e.preventDefault();
+    var velocidadRef = this.velocidad.current.value
+    if(isNaN(velocidadRef)) return alert('Ingrese solo numeros')
+    if(velocidadRef == 0) return alert('Ingrese un numero mayor a 0')
+    let nuevaVelocidad = ( velocidadRef * 1000);
+    this.state.identity.velocidad = nuevaVelocidad;
+    this.setState({
+      identity: this.state.identity
+    })
+    localStorage.setItem('identity', JSON.stringify(this.state.identity));
   }
 
   logIn = (e) => {
     e.preventDefault();
     let user = {
       alias: this.name.current.value,
-      velocidad: 0,
+      velocidad: 1000,
       bien: 0,
       mal: 0,
       numeros: 0,
@@ -114,37 +140,61 @@ class Login extends Component {
       record: 0
     }
     localStorage.setItem('identity', JSON.stringify(user));
+    this.setState({
+      identity: user
+    })
   }
 
   render() {
     return (
       <React.Fragment>
-        <div>
-          {this.state.identity &&
-            <p>Record: {this.state.identity.record}</p>
-          }
-
-          <p>Puntuación: {this.state.puntuacion}</p>
-          <p>Bien: {this.state.bien}</p>
-          <p>Mal: {this.state.mal}</p>
-          <p>Cantidad de números: {this.state.numerosCant}</p>
+        {this.state.identity ?
           <div>
-            <p>NÚMEROS</p>
-            <button onClick={this.incrementNumber}>Aumentar</button>
-            <button onClick={this.decrementNumber}>Bajar</button>
+            {this.state.identity &&
+              <p>Record: {this.state.identity.record}</p>
+            }
+            <p>Velocidad: {(this.state.identity.velocidad / 1000)} segundo/s</p>
+            <p>Puntuación: {this.state.puntuacion}</p>
+            <p>Bien: {this.state.bien}</p>
+            <p>Mal: {this.state.mal}</p>
+            <p>Cantidad de números: {this.state.numerosCant}</p>
+            <div>
+              <p>NÚMEROS</p>
+              <button onClick={this.incrementNumber}>Aumentar</button>
+              <button onClick={this.decrementNumber}>Bajar</button>
+            </div>
+
+
+
+
+
+            {this.state.start &&
+              <form onSubmit={this.signIn}>
+                <input type="number" ref={this.answer} placeholder="" />
+
+                <input type="submit" name="submit" />
+              </form>
+            }
+
+            {this.state.ver &&
+              <p>{this.state.num}</p>
+            }
+            {!this.state.start &&
+              <div>
+                <p>Velocidad</p>
+                <form onSubmit={this.aumentarVelocidad}>
+                  <input type="text" ref={this.velocidad} placeholder="" />
+
+                  <input type="submit" name="submit" />
+                </form>
+                <button onClick={this.start}>Empezar</button>
+              </div>
+            }
+
+
           </div>
 
-          <form onSubmit={this.signIn}>
-            <input type="number" ref={this.answer} placeholder="" />
-
-            <input type="submit" name="submit" />
-          </form>
-          {this.state.ver &&
-            <p>{this.state.num}</p>
-          }
-
-          <button onClick={this.start}>Empezar</button>
-          <div>
+          : <div>
             <p>Ingrese su nombre</p>
             <form onSubmit={this.logIn}>
               <input type="text" ref={this.name} placeholder="NOMBRE" />
@@ -152,7 +202,8 @@ class Login extends Component {
               <input type="submit" name="submit" />
             </form>
           </div>
-        </div>
+        }
+
       </React.Fragment>
     );
   }
