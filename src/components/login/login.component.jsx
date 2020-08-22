@@ -164,13 +164,9 @@ class Login extends Component {
               <button onClick={this.decrementNumber}>Bajar</button>
             </div>
 
-
-
-
-
             {this.state.start &&
               <form onSubmit={this.signIn}>
-                <input type="number" ref={this.answer} placeholder="" />
+                <input type="number" ref={this.answer}/>
 
                 <input type="submit" name="submit" />
               </form>
@@ -183,7 +179,7 @@ class Login extends Component {
               <div>
                 <p>Velocidad</p>
                 <form onSubmit={this.aumentarVelocidad}>
-                  <input type="text" ref={this.velocidad} placeholder="" />
+                  <input type="text" ref={this.velocidad}/>
 
                   <input type="submit" name="submit" />
                 </form>
