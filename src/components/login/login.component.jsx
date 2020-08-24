@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { NavLink, Redirect } from "react-router-dom";
+//import { NavLink, Redirect } from "react-router-dom";
 //import "./login.style.sass";
 
 class Login extends Component {
@@ -18,13 +18,36 @@ class Login extends Component {
       ver: true,
       clear: false,
       start: false,
-      stop: 0
+      stop: 0,
+      letrasMay: true,
+      letras: true,
+      numeros: true,
+      changeSpeed: 0,
+      algorithm: true,
+      time: 90,
+      timeout: 0
     };
+
+    this.handleInputChange = this.handleInputChange.bind(this)
   }
 
   answer = React.createRef();
   name = React.createRef();
   velocidad = React.createRef();
+
+  handleInputChange(event) {
+    const target = event.target;
+    const name = target.name;
+    var value;
+    if (name === 'letras') value = target.checked;
+    else if (name === 'numeros') value = target.checked;
+    else if (name === 'letrasMay') value = target.checked;
+    else if (name === 'algorithm') value = target.checked;
+
+    this.setState({
+      [name]: value
+    });
+  }
 
   incrementNumber = (e) => {
     var cantidadDeNumeros = this.state.numerosCant;
@@ -35,7 +58,7 @@ class Login extends Component {
 
   decrementNumber = (e) => {
     var cantidadDeNumeros = this.state.numerosCant;
-    if (cantidadDeNumeros == 2) return alert('demasiado');
+    if (cantidadDeNumeros === 2) return alert('demasiado');
     this.setState({
       numerosCant: cantidadDeNumeros - 1
     })
@@ -43,10 +66,21 @@ class Login extends Component {
 
   randomNumber = () => {
     var lista = []
+    var letras = 'abcdefghijklmnopqrstuvwxyz';
+    var letrasMay = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    var numeros = '0123456789';
+
+    var characters = ''
+
+    if (this.state.letras) characters += letras;
+    if (this.state.letrasMay) characters += letrasMay;
+    if (this.state.numeros) characters += numeros;
+
+    var charactersLength = characters.length;
     for (var i = 0; i < this.state.numerosCant; i++) {
-      var number = Math.ceil(Math.random() * (9 - 0) + 0);
-      lista.push(number);
+      lista.push(characters.charAt(Math.floor(Math.random() * charactersLength)));
     }
+
 
     this.setState({
       num: lista,
@@ -68,9 +102,19 @@ class Login extends Component {
   }
 
   timeOut = (e) => {
+    const time = setInterval(() => {
+      this.setState({
+        time: this.state.time - 1
+      })
+    }, 1000);
     const timer = setTimeout(() => {
       this.marckRecord()
+      clearTimeout(time)
+      this.setState({
+        time: 90
+      })
     }, 90000);
+
     return () => clearTimeout(timer);
   }
 
@@ -95,9 +139,11 @@ class Login extends Component {
       if (stop === this.state.stop) this.setState({ ver: false })
     }, this.state.identity.velocidad);
 
-
     var res = this.answer.current.value
-    if (res == this.state.num.join('')) {
+    this.answer.current.value = null;
+    if (res === this.state.num.join('')) {
+      if (this.state.algorithm) this.changeSpeedAlgorithm("WELL");
+
       var value = (this.state.puntuacion + (this.state.numerosCantActual * 10) / (this.state.identity.velocidad / 1000))
       value = Math.round(value);
       this.setState({
@@ -106,19 +152,32 @@ class Login extends Component {
         clear: true
       });
     }
-    else this.setState({
-      mal: this.state.mal + 1,
-      clear: true
-    });
+    else {
+      if (this.state.algorithm) this.changeSpeedAlgorithm("BAD");
+
+      this.setState({
+        mal: this.state.mal + 1,
+        clear: true
+      });
+    }
+
     this.randomNumber();
   }
 
   aumentarVelocidad = (e) => {
     e.preventDefault();
     var velocidadRef = this.velocidad.current.value
-    if(isNaN(velocidadRef)) return alert('Ingrese solo numeros')
-    if(velocidadRef == 0) return alert('Ingrese un numero mayor a 0')
-    let nuevaVelocidad = ( velocidadRef * 1000);
+    console.log(velocidadRef)
+    if (isNaN(velocidadRef)) {
+      this.velocidad.current.value = ''
+      return alert('Ingrese solo numeros')
+    }
+    if (velocidadRef === "0") {
+      this.velocidad.current.value = ''
+      return alert('Ingrese un numero mayor a 0')
+    }
+    if (velocidadRef === '') return
+    let nuevaVelocidad = (velocidadRef * 1000);
     this.state.identity.velocidad = nuevaVelocidad;
     this.setState({
       identity: this.state.identity
@@ -145,6 +204,38 @@ class Login extends Component {
     })
   }
 
+  changeSpeedAlgorithm(answerRes) {
+    var speed = this.state.changeSpeed
+    var numerosCant = this.state.numerosCant
+    console.log(numerosCant)
+    if (answerRes === 'WELL') {
+      this.setState({
+        changeSpeed: speed + 1
+      })
+    }
+    if (answerRes === 'BAD') this.setState({
+      changeSpeed: speed - 1
+    })
+
+    if (speed === 2) {
+      this.setState({
+        numerosCant: numerosCant + 1
+      })
+    }
+    if (numerosCant > 2 && speed === -2) {
+      this.setState({
+        numerosCant: numerosCant - 1
+      })
+    }
+
+    if (speed === 2 || speed === -2) {
+      this.setState({
+        changeSpeed: 0
+      })
+    }
+
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -163,12 +254,31 @@ class Login extends Component {
               <button onClick={this.incrementNumber}>Aumentar</button>
               <button onClick={this.decrementNumber}>Bajar</button>
             </div>
+            <div>
+              {this.state.time > 60
+                ?
+                <p>1:{this.state.time - 60}</p>
+                :
+                <p>0:{this.state.time}</p>
+              }
+            </div>
+            <form>
+              <label htmlFor="letras">Letras</label>
+              <input type="checkbox" name="letras" checked={this.state.letras} onChange={this.handleInputChange} />
+              <label htmlFor="numeros">Numeros</label>
+              <input type="checkbox" name="numeros" checked={this.state.numeros} onChange={this.handleInputChange} />
+              <label htmlFor="letrasMay">Letras con mayuscula</label>
+              <input type="checkbox" name="letrasMay" checked={this.state.letrasMay} onChange={this.handleInputChange} />
+            </form>
+
+            <form>
+              <label htmlFor="algorithm">Algoritmo</label>
+              <input type="checkbox" name="algorithm" checked={this.state.algorithm} onChange={this.handleInputChange} />
+            </form>
 
             {this.state.start &&
               <form onSubmit={this.signIn}>
-                <input type="number" ref={this.answer}/>
-
-                <input type="submit" name="submit" />
+                <input type="text" ref={this.answer} />
               </form>
             }
 
@@ -178,10 +288,8 @@ class Login extends Component {
             {!this.state.start &&
               <div>
                 <p>Velocidad</p>
-                <form onSubmit={this.aumentarVelocidad}>
-                  <input type="text" ref={this.velocidad}/>
-
-                  <input type="submit" name="submit" />
+                <form >
+                  <input type="text" onChange={this.aumentarVelocidad} ref={this.velocidad} placeholder="" />
                 </form>
                 <button onClick={this.start}>Empezar</button>
               </div>
