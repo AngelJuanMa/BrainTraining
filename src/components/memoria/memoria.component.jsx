@@ -2,7 +2,7 @@ import React, { Component } from "react";
 //import { NavLink, Redirect } from "react-router-dom";
 //import "./login.style.sass";
 
-class Login extends Component {
+class Memoria extends Component {
   constructor(props) {
     super(props);
     let user = JSON.parse(localStorage.getItem("identity"));
@@ -313,4 +313,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default Memoria;

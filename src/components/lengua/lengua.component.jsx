@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import { NavLink, Redirect } from "react-router-dom";
 //import "./login.style.sass";
-import { NavLink } from "react-router-dom";
+import Modulo1 from "./modulos/lengua.component";
 
 class Lengua extends Component {
     constructor(props) {
@@ -14,9 +13,8 @@ class Lengua extends Component {
         return (
             <React.Fragment>
                 <p>Parte 1</p>
-                <NavLink to="/">
             IR
-          </NavLink>
+            <Modulo1></Modulo1>
             </React.Fragment>
         );
     }
