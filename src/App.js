@@ -2,14 +2,9 @@ import React, { Component } from 'react';
 import './assets/App.css';
 import Memoria from './components/memoria/memoria.component.jsx';
 import Lengua from './components/lengua/lengua.component.jsx';
+import Ingles from './components/ingles/ingles.component.jsx';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    let user = JSON.parse(localStorage.getItem("identity"));
-
-
-  }
   state = {
     memoria: false,
     lengua: false,
@@ -63,6 +58,7 @@ class App extends Component {
           switch (this.state.inComponent) {
             case 1: return <Memoria></Memoria>;
             case 2: return <Lengua></Lengua>;
+            case 3: return <Ingles></Ingles>;
             default:
               return <div>
                 <button onClick={this.goComponent.bind(this, 1)}>Memoria</button>
