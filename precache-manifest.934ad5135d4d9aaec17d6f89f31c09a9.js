@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "a2c63ae279530cdcb23365f0578e55af",
+    "revision": "f8fec2e50b48778ec79689ff80c0a878",
     "url": "/BrainTraining/index.html"
   },
   {
-    "revision": "ceeafe2d88af6ebb0fe1",
-    "url": "/BrainTraining/static/css/main.fe44c0db.chunk.css"
+    "revision": "d28e4a7005cbb29ca7a4",
+    "url": "/BrainTraining/static/css/main.50ff0dcc.chunk.css"
   },
   {
     "revision": "3384f45d99c6effe9904",
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/BrainTraining/static/js/2.de80fb1f.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "ceeafe2d88af6ebb0fe1",
-    "url": "/BrainTraining/static/js/main.779d1145.chunk.js"
+    "revision": "d28e4a7005cbb29ca7a4",
+    "url": "/BrainTraining/static/js/main.bff1f22e.chunk.js"
   },
   {
     "revision": "56aacffd70563032a3eb",
