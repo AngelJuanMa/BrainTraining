@@ -1,24 +1,48 @@
-#principal
+#main
     align-content: center
     text-align: center
     height: 100% !important
-    h1
-        margin-top: 10px !important
-        margin-bottom: 10px !important
-    .components
-        margin-right: auto !important
-        margin-left: auto !important
-        width: 100% !important
-        height: 31% !important
-        background: black
-    .cuadrado
-        margin-right: auto !important
-        margin-left: auto !important
-        -moz-border-radius: 50%
-        -webkit-border-radius: 50%
-        border-radius: 38%
-        background: #5cb85c
-        width: 200px
-        height: 200px
+    #header
+        height: 5% !important
+    #nav
+        height: 95% !important
+        h1
+            margin-top: 10px !important
+            margin-bottom: 10px !important
+        .components
+            margin-right: auto !important
+            margin-left: auto !important
+            width: 100% !important
+            height: 31% !important
+        .cuadrado, .cuadrado2
+            margin-right: auto !important
+            margin-left: auto !important
+            -moz-border-radius: 50%
+            -webkit-border-radius: 50%
+            border-radius: 38%
+            background: #5cb85c
+            width: 160px
+            height: 160px
 
-@media (min-width: 800px)
+@media (min-width: 1200px)
+    .cuadrado, .cuadrado2
+        width: 300px !important
+        height: 300px !important
+
+@media (min-width: 700px)
+    #main
+        #header
+        #nav
+            display: flex
+            justify-content: center
+            align-items: center
+            h1
+            .components
+                width: auto !important
+                display: inline-flex
+            #cuadrados
+                margin-right: 15% !important
+                margin-left: 15% !important
+            .cuadrado, .cuadrado2
+                width: 180px 
+                height: 180px

@@ -1,49 +1,49 @@
 import React, { Component } from "react";
-import words from './words';
+import "./ingles.style.sass";
 
 class Ingles extends Component {
     state = {
+        wordsToLearn: [],
+        none: false,
+        days: 0,
         words: 0,
-        wordsToLeard: []
+        totalWords: 0
     }
 
     componentWillMount(e) {
         var words = localStorage.getItem('words')
+        var days = localStorage.getItem('Days');
         this.setState({
-            words: words
+            words: words,
+            days: days,
         })
         this.showWord()
-        this.lastTime();
+        this.lastTime(words, days);
     }
 
-    lastTime = (e) => {
+    lastTime = (words, days) => {
         var date = new Date()
-        var horaB = date.getHours()
-        var horaA = date.getDate()
-        var lastDate = {
-            horaA,
-            horaB
+        var dates = date.getDate();
+        var totalWords = days * words;
+        if (localStorage.getItem('lastDate') > dates) {
+            localStorage.setItem('lastDate', dates);
+            localStorage.setItem('Days', this.setState.days + 1);
+            totalWords = (days + 1) * words
+            this.setState({
+                days: days + 1,
+                totalWords: totalWords
+            })
+        } else {
+            localStorage.setItem('dates', dates);
+            this.setState({
+                totalWords: totalWords
+            })
         }
-        if (!localStorage.getItem('lastDay')) localStorage.setItem('lastDay', Object.values(lastDate))
     }
+
 
     showWord = (e) => {
         var dias = localStorage.getItem('lastDay');
-        var allWords = ["Hello", "Bye", "Hi", "Tomorrow", "Land"];
-        this.setState({
-            wordsToLeard: allWords
-        })
-
-    }
-
-    setWords(e) {
-        localStorage.setItem('words', e)
-        this.setState({
-            words: e
-        })
-    }
-
-    render() {
         var words = ['the',
             'of',
             'to',
@@ -1046,6 +1046,28 @@ class Ingles extends Component {
             'shell',
             'neck'
         ]
+        
+        this.setState({
+            wordsToLearn: words
+        })
+
+    }
+
+    setWords(e) {
+        var date = new Date()
+        var dates = [date.getDate()];
+
+        localStorage.setItem('lastDate', dates)
+        localStorage.setItem('words', e)
+        localStorage.setItem('Days', 1)
+        this.setState({
+            days: 1,
+            words: e,
+            totalWords: e
+        })
+    }
+
+    render() {
         var palabras = ['el/la/los/las',
             'de',
             'a/hacia',
@@ -2050,29 +2072,30 @@ class Ingles extends Component {
         ]
         return (
             <div>
-                <h1>Ingles</h1>
-                <p>{words[2]}</p>
-                {this.state.words}
+                <h1>English</h1>
                 {!this.state.words &&
                     <div>
-
                         <button onClick={this.setWords.bind(this, 5)}>Normal 5</button>
                         <button onClick={this.setWords.bind(this, 10)}>Avanzado 10</button>
                         <button onClick={this.setWords.bind(this, 15)}>Experto 15</button>
                     </div>
                 }
-                <ol>
-                    {
-                        this.state.wordsToLeard.map((words, i) => {
-
-                            return (
-                                <li key={i}>
-                                    {words}
-                                </li>
-                            );
-                        })
-                    }
-                </ol>
+                {this.state.words &&
+                    <tbody>
+                        {
+                            this.state.wordsToLearn.map((words, i) => {
+                                if (i < this.state.totalWords) {
+                                    return (
+                                        <tr >
+                                            <td key={i}>{words}</td>
+                                            <td key={i}>{palabras[i]}</td>
+                                        </tr>
+                                    );
+                                }
+                            })
+                        }
+                    </tbody>
+                }
             </div>
         );
     }
