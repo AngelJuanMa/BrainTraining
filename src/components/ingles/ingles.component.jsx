@@ -2,15 +2,25 @@ import React, { Component } from "react";
 import "./ingles.style.sass";
 
 class Ingles extends Component {
+    constructor(props) {
+        super(props);
+
+        this.handleChange = this.handleChange.bind(this);
+
+
+    }
+
     state = {
         wordsToLearn: [],
         none: false,
         days: 0,
         words: 0,
-        totalWords: 0
+        totalWords: 0,
+        cantOfWords: "Day"
     }
 
     componentWillMount(e) {
+        console.log(this.state.cantOfWords)
         var words = localStorage.getItem('words')
         var days = localStorage.getItem('Days');
         this.setState({
@@ -25,7 +35,7 @@ class Ingles extends Component {
         var date = new Date()
         var dates = date.getDate();
         var totalWords = days * words;
-        if (localStorage.getItem('lastDate') > dates) {
+        if (localStorage.getItem('lastDate') == !dates) {
             localStorage.setItem('lastDate', dates);
             localStorage.setItem('Days', this.setState.days + 1);
             totalWords = (days + 1) * words
@@ -1046,7 +1056,7 @@ class Ingles extends Component {
             'shell',
             'neck'
         ]
-        
+
         this.setState({
             wordsToLearn: words
         })
@@ -1066,6 +1076,12 @@ class Ingles extends Component {
             totalWords: e
         })
     }
+
+    handleChange(event) {
+        this.setState({ cantOfWords: event.target.value });
+        console.log(this.state.cantOfWords)
+    }
+
 
     render() {
         var palabras = ['el/la/los/las',
@@ -2073,6 +2089,14 @@ class Ingles extends Component {
         return (
             <div>
                 <h1>English</h1>
+                <div id="select">
+                    <select value={this.state.cantOfWords} onChange={this.handleChange} name="select">
+                        <option value="Day" selected>Day</option>
+                        <option value="Week">Week</option>
+                        <option value="All">All</option>
+                    </select>
+                </div>
+
                 {!this.state.words &&
                     <div>
                         <button onClick={this.setWords.bind(this, 5)}>Normal 5</button>
@@ -2081,20 +2105,61 @@ class Ingles extends Component {
                     </div>
                 }
                 {this.state.words &&
-                    <tbody>
-                        {
-                            this.state.wordsToLearn.map((words, i) => {
-                                if (i < this.state.totalWords) {
-                                    return (
-                                        <tr >
-                                            <td key={i}>{words}</td>
-                                            <td key={i}>{palabras[i]}</td>
-                                        </tr>
-                                    );
-                                }
-                            })
-                        }
-                    </tbody>
+                    <table role="table">
+                        <thead role="rowgroup">
+                            <tr role="row">
+                                <th role="columnheader">
+                                    Número
+                                </th>
+                                <th role="columnheader">
+                                    Palabra en Inglés
+                                </th>
+                                <th role="columnheader">
+                                    Traducción
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody role="rowgroup">
+                            {this.state.cantOfWords === "Day" ?
+                                this.state.wordsToLearn.map((words, i) => {
+                                    if (i >= (this.state.days - 1) * this.state.words && i < this.state.totalWords) {
+                                        return (
+                                            <tr role="row">
+                                                <td role="cell">{i + 1}</td>
+                                                <td role="cell" key={i}>{words}</td>
+                                                <td role="cell">{palabras[i]}</td>
+                                            </tr>
+                                        );
+                                    }
+                                })
+                                : this.state.cantOfWords === "All" ?
+                                    this.state.wordsToLearn.map((words, i) => {
+                                        if (i < this.state.totalWords) {
+                                            return (
+                                                <tr role="row">
+                                                    <td role="cell">{i + 1}</td>
+                                                    <td role="cell" key={i}>{words}</td>
+                                                    <td role="cell">{palabras[i]}</td>
+                                                </tr>
+                                            );
+                                        }
+                                    })
+                                    :
+                                    this.state.wordsToLearn.map((words, i) => {
+                                        if (i >= (this.state.days - 7) * this.state.words && i < this.state.totalWords) {
+                                            return (
+                                                <tr role="row">
+                                                    <td role="cell">{i + 1}</td>
+                                                    <td role="cell" key={i}>{words}</td>
+                                                    <td role="cell">{palabras[i]}</td>
+                                                </tr>
+                                            );
+                                        }
+                                    })
+                            }
+                        </tbody>
+                    </table>
+
                 }
             </div>
         );
