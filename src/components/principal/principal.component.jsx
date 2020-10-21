@@ -11,12 +11,13 @@ class Principal extends Component {
                     <h1>TITULO</h1>
                 </div>
                 <div id="nav">
-                    <div className="components">
+                    <div className="components" id="primero">
                         <div className="cuadrado">
                             <NavLink to="/memoria">
                                 <div className="cuadrado2">
                                 </div>
                             </NavLink>
+                            <p>Memoria</p>
                         </div>
                     </div>
                     <div className="components" id="cuadrados">
@@ -25,6 +26,7 @@ class Principal extends Component {
                                 <div className="cuadrado2">
                                 </div>
                             </NavLink>
+                            <p>Ortogría</p>
                         </div>
                     </div>
                     <div className="components">
@@ -33,6 +35,7 @@ class Principal extends Component {
                                 <div className="cuadrado2">
                                 </div>
                             </NavLink>
+                            <p>Ingles</p>
                         </div>
                     </div>
                 </div>

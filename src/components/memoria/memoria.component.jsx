@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-//import { NavLink, Redirect } from "react-router-dom";
-//import "./login.style.sass";
 
 class Memoria extends Component {
   constructor(props) {

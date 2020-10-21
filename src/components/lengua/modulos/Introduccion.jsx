@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { NavLink, Redirect } from "react-router-dom";
 //import "./login.style.sass";
 
-class Lengua extends Component {
+class Introduccion extends Component {
     constructor(props) {
         super(props);
         let user = JSON.parse(localStorage.getItem("identity"));
@@ -131,4 +131,4 @@ class Lengua extends Component {
     }
 }
 
-export default Lengua;
+export default Introduccion;
