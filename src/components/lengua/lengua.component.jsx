@@ -26,6 +26,7 @@ class Lengua extends Component {
                                     <div className="cuadrado2">
                                     </div>
                                 </NavLink>
+                                
                             </div>
                             <p>Introducción</p>
                         </div>
@@ -33,57 +34,51 @@ class Lengua extends Component {
                     <div id="segund2">
                         <div id="segundo">
                             <div className="component">
-                                <div className="circulo">
+                                <div className="circulo" class="circulo1">
                                     <NavLink to="/Introducción">
                                         <div className="cuadrado2">
                                         </div>
                                     </NavLink>
+                                    <p>Tonicas y atonas</p>
                                 </div>
-                                <p>Tonicas y atonas</p>
+                                
                             </div>
                             <div className="component" id="cuadrados">
-                                <div className="circulo" id="circulo2">
+                                <div className="circulo" class="circulo2">
                                     <NavLink to="/Introducción">
                                         <div className="cuadrado2">
                                         </div>
                                     </NavLink>
+                                    <p>Silabas</p>
                                 </div>
-                                <p>Silabas</p>
+                                
                             </div>
                         </div>
                     </div>
                     <div id="tercer2">
                         <div id="tercero">
                             <div className="component">
-                                <div className="circulo">
+                                <div className="circulo" class="circulo1">
                                     <NavLink to="/Introducción">
                                         <div className="cuadrado2">
                                         </div>
                                     </NavLink>
+                                    <p>Agudas</p>
                                 </div>
-                                <p>Agudas</p>
+                                
                             </div>
                             <div className="component">
-                                <div className="circulo" id="circulo3">
+                                <div className="circulo"  class="circulo2">
                                     <NavLink to="/Introducción">
                                         <div className="cuadrado2">
                                         </div>
                                     </NavLink>
+                                    <p>Preposiciones</p>
                                 </div>
-                                <p>Signos de puntuación</p>
-                            </div>
-                            <div className="component">
-                                <div className="circulo">
-                                    <NavLink to="/Introducción">
-                                        <div className="cuadrado2">
-                                        </div>
-                                    </NavLink>
-                                </div>
-                                <p>Preposiciones</p>
+                                
                             </div>
                         </div>
                     </div>
-
                     <div id="cuarto">
                         <div className="component">
                             <div className="circulo">

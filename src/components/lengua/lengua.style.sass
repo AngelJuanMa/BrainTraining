@@ -12,6 +12,10 @@
     #nav
 
         #primero,#segundo,#tercero,#cuarto
+            margin-right: auto !important
+            margin-left: auto !important
+            width: 100% !important
+            height: 31% !important
             .component
                 margin-right: auto !important
                 margin-left: auto !important
@@ -24,51 +28,84 @@
                 -webkit-border-radius: 50%
                 border-radius: 50%
                 background: #5cb85c
-                width: 80px
-                height: 80px
+                width: 90px
+                height: 90px
 
         #segundo,#tercero,#cuarto
             .circulo, .cuadrado2
-                margin-top: 30px  !important
+                margin-top: 40px  !important
 
         #segundo,#tercero
             display: inline-flex
 
-        #segundo
-            #circulo2
-                margin-left: 25px !important
+        #segundo,#tercero
+            .circulo2
+                margin-left: 30px
+            .circulo1
+                margin-right: 30px
 
-        #tercero
-            #circulo3
-                margin-left: 25px !important
-                margin-right: 25px !important
+@media (min-width: 300px)
+    #Lengua
+        #segundo,#tercero
+            .circulo2
+                margin-left: 30px !important
+            .circulo1
+                margin-right: 30px !important
+
+        #segundo,#tercero,#cuarto
+            .circulo, .cuadrado2
+                margin-top: 40px  !important
 
 @media (min-width: 768px)
     #Lengua
-        .circulo
+        .circulo, .cuadrado2
             width: 140px !important
             height: 140px !important
+
+        #segundo,#tercero
+            .circulo2
+                margin-left: 50px !important
+            .circulo1
+                margin-right: 50px !important
 
 @media (min-width: 1024px)
     #Lengua
         p
             font-size: 20px !important
-        .circulo
+        .circulo, .cuadrado2
             width: 150px !important
             height: 150px !important
+
+        #segundo,#tercero
+            .circulo2
+                margin-left: 70px !important
+            .circulo1
+                margin-right: 70px !important
 
 @media (min-width: 1440px)
     #Lengua
         p
             font-size: 22px !important
-        .circulo
+        .circulo, .cuadrado2
             width: 170px !important
             height: 170px !important
+
+        #segundo,#tercero
+            .circulo2
+                margin-left: 80px !important
+            .circulo1
+                margin-right: 80px !important
 
 @media (min-width: 2560px)
     #Lengua
         p
             font-size: 40px !important
-        .circulo
+        .circulo, .cuadrado2
             width: 330px !important
             height: 330px !important
+
+        #segundo,#tercero
+            .circulo2
+                margin-left: 200px !important
+            .circulo1
+                margin-right: 200px !important

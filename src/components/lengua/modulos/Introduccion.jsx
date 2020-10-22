@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 import { NavLink, Redirect } from "react-router-dom";
-//import "./login.style.sass";
+import "./Introduccion.style.sass";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+    faCaretRight,
+    faQuestion
+} from "@fortawesome/free-solid-svg-icons";
 
 class Introduccion extends Component {
     constructor(props) {
@@ -66,67 +71,94 @@ class Introduccion extends Component {
             this.setState({
                 block: false
             })
-        }else alert('INCORRECT')
+        } else alert('INCORRECT')
 
     }
 
     render() {
         return (
-            <React.Fragment>
-                {this.state.part1 &&
-                    <div>
+            <div id="introduccion">
+                <main>
+                    <h1>Introduccion</h1>
+                </main>
+                <div className="status">
+                    <FontAwesomeIcon className="iconMenu" className="play" id="now" icon={faCaretRight} />
+                    <FontAwesomeIcon className="iconMenu" className="noFirst" className="question" icon={faQuestion} />
+                </div>
+                <div className="cart">
+                    <div className="block-1">
+                        {this.state.part1 &&
+                            <div>
 
-                        <h1>123</h1>
 
-                        <p>aabbccaabbccaabbccaabbccaabbccaabbccaabbccaabbccaabbccaabbccaabbccaabbcc</p>
+                                <div className="texto">
+                                    <h2>Acento</h2>
+                                    <p>El acento es la pronunciación más fuerte de una sílaba respecto a todas las demás de la palabra.</p>
 
-                        <button onClick={this.next.bind(this, 1)}>Siguiente</button>
-                        <button >Volver</button>
-                    </div>
-                }
-                {this.state.part2 &&
-                    <div>
+                                    <p>El acento gráfico o tilde es el signo que indica qué sílaba se acentúa</p>
+                                    <span className="ejemplo">
+                                        <p>-árbol</p>
+                                    </span>
 
-                        <h1>1234</h1>
-                        <p>Las 4 primeras letras que se mostraban eran...</p>
-                        <form onSubmit={this.submitAnswer}>
-                            <input type="text" ref={this.answerRef} />
-                            <input type="submit" name="submit" />
-                        </form>
-                        {!this.state.block &&
-                            <button onClick={this.next.bind(this, 2)}>Siguiente</button>
+                                    <span className="tip">
+                                        <p>Las palabras tónicas pueden presentar únicamente una tilde y, siempre, sobre una vocal.</p>
+                                    </span>
+                                </div>
+
+
+                            </div>
                         }
-                        <button onClick={this.next.bind(this, 1)}>Atras</button>
-                    </div>
-                }
-                {this.state.part3 &&
-                    <div>
+                        {this.state.part2 &&
+                            <div>
 
-                        <h1>12345</h1>
-                        <p>Elije la respuesta correcta</p>
-                        <form onSubmit={this.submitAnswer}>
-                            <input type="text" ref={this.answerRef} />
-                            <input type="submit" name="submit" />
-                        </form>
-
-                        {!this.state.block &&
-                            <button onClick={this.next.bind(this, 3)}>Siguiente</button>
+                                <h1>1234</h1>
+                                <p>Las 4 primeras letras que se mostraban eran...</p>
+                                <form onSubmit={this.submitAnswer}>
+                                    <input type="text" ref={this.answerRef} />
+                                    <input type="submit" name="submit" />
+                                </form>
+                                {!this.state.block &&
+                                    <button onClick={this.next.bind(this, 2)}>Siguiente</button>
+                                }
+                                <button onClick={this.next.bind(this, 1)}>Atras</button>
+                            </div>
                         }
-                        <button onClick={this.next.bind(this, 2)}>Atras</button>
+                        {this.state.part3 &&
+                            <div>
+
+                                <h1>12345</h1>
+                                <p>Elije la respuesta correcta</p>
+                                <form onSubmit={this.submitAnswer}>
+                                    <input type="text" ref={this.answerRef} />
+                                    <input type="submit" name="submit" />
+                                </form>
+
+                                {!this.state.block &&
+                                    <button onClick={this.next.bind(this, 3)}>Siguiente</button>
+                                }
+                                <button onClick={this.next.bind(this, 2)}>Atras</button>
+                            </div>
+                        }
+                        {this.state.part4 &&
+                            <div>
+
+                                <h1>123456</h1>
+
+                                <p>aabbccaabbccaabbccaabbccaabbccaabbccaabbccaabbccaabbccaabbccaabbccaabbcc</p>
+
+                                <button>Siguiente</button>
+                                <button onClick={this.bind(this, 3)}>Atras</button>
+                            </div>
+                        }
                     </div>
-                }
-                {this.state.part4 &&
-                    <div>
+                    <div className="block-2">
 
-                        <h1>123456</h1>
-
-                        <p>aabbccaabbccaabbccaabbccaabbccaabbccaabbccaabbccaabbccaabbccaabbccaabbcc</p>
-
-                        <button>Siguiente</button>
-                        <button onClick={this.bind(this, 3)}>Atras</button>
+                        <button onClick={this.next.bind(this, 1)}>SIGUIENTE</button>
                     </div>
-                }
-            </React.Fragment>
+
+                </div>
+
+            </div>
         );
     }
 }
