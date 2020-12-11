@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import "./memoria.style.sass";
+import Countdown from './countdown';
 
 class Memoria extends Component {
   constructor(props) {
@@ -23,7 +25,8 @@ class Memoria extends Component {
       changeSpeed: 0,
       algorithm: true,
       time: 90,
-      timeout: 0
+      timeout: 0,
+      timeStart: false
     };
 
     this.handleInputChange = this.handleInputChange.bind(this)
@@ -97,23 +100,9 @@ class Memoria extends Component {
       bien: 0,
       start: true
     })
-  }
-
-  timeOut = (e) => {
-    const time = setInterval(() => {
-      this.setState({
-        time: this.state.time - 1
-      })
-    }, 1000);
-    const timer = setTimeout(() => {
-      this.marckRecord()
-      clearTimeout(time)
-      this.setState({
-        time: 90
-      })
-    }, 90000);
-
-    return () => clearTimeout(timer);
+    this.setState({
+      timeStart: true
+    })
   }
 
   marckRecord = (e) => {
@@ -234,11 +223,20 @@ class Memoria extends Component {
 
   }
 
+  timeOut = () => {
+      console.log('timeOut')
+  }
+
   render() {
     return (
       <React.Fragment>
+        <Countdown time={this.state.time} timeStart={this.state.timeStart} timeOut={this.timeOut}/> 
         {this.state.identity ?
-          <div>
+          <div id="memoria">
+            <div>
+              <div id="tiempo"></div>
+            </div>
+
             {this.state.identity &&
               <p>Record: {this.state.identity.record}</p>
             }
@@ -252,14 +250,6 @@ class Memoria extends Component {
               <button onClick={this.incrementNumber}>Aumentar</button>
               <button onClick={this.decrementNumber}>Bajar</button>
             </div>
-            <div>
-              {this.state.time > 60
-                ?
-                <p>1:{this.state.time - 60}</p>
-                :
-                <p>0:{this.state.time}</p>
-              }
-            </div>
             <form>
               <label htmlFor="letras">Letras</label>
               <input type="checkbox" name="letras" checked={this.state.letras} onChange={this.handleInputChange} />
@@ -267,11 +257,6 @@ class Memoria extends Component {
               <input type="checkbox" name="numeros" checked={this.state.numeros} onChange={this.handleInputChange} />
               <label htmlFor="letrasMay">Letras con mayuscula</label>
               <input type="checkbox" name="letrasMay" checked={this.state.letrasMay} onChange={this.handleInputChange} />
-            </form>
-
-            <form>
-              <label htmlFor="algorithm">Algoritmo</label>
-              <input type="checkbox" name="algorithm" checked={this.state.algorithm} onChange={this.handleInputChange} />
             </form>
 
             {this.state.start &&

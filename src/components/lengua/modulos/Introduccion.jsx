@@ -18,47 +18,43 @@ class Introduccion extends Component {
             part3: false,
             part4: false,
             part5: false,
-            block: true
+            block: true,
+            inQuestion: false
         };
     }
 
     answerRef = React.createRef();
 
     next = (e) => {
-        switch (e) {
-            case 1:
-                this.setState({
-                    part1: this.state.part1 ? false : true,
-                    part2: this.state.part2 ? false : true
-                })
-                break;
-            case 2:
-                this.setState({
-                    part2: this.state.part2 ? false : true,
-                    part3: this.state.part3 ? false : true
-                })
-                break;
-            case 3:
-                this.setState({
-                    part3: this.state.part3 ? false : true,
-                    part4: this.state.part4 ? false : true
-                })
-                break;
-            case 4:
-                this.setState({
-                    part4: this.state.part4 ? false : true,
-                    part5: this.state.part5 ? false : true
-                })
-                break;
-            case 5:
-                this.setState({
-                    part5: this.state.part5 ? false : true
-                })
-                break;
+        if (this.state.part1) {
+            this.setState({
+                part1: false,
+                part2: true,
+                inQuestion: true
+            })
+        } else if (this.state.part2) {
+            this.setState({
+                part2: false,
+                part3: true,
+                inQuestion: false
+            })
         }
-        this.setState({
-            block: true
-        })
+    }
+
+    back = (e) => {
+        if (this.state.part2) {
+            this.setState({
+                part1: true,
+                part2: false,
+                inQuestion: false
+            })
+        } else if (this.state.part3) {
+            this.setState({
+                part2: true,
+                part3: false,
+                inQuestion: true
+            })
+        }
     }
 
     submitAnswer = (e) => {
@@ -79,7 +75,7 @@ class Introduccion extends Component {
         return (
             <div id="introduccion">
                 <main>
-                    <h1>Introduccion</h1>
+                    <h1>Introducción</h1>
                 </main>
                 <div className="status">
                     <FontAwesomeIcon className="iconMenu" className="play" id="now" icon={faCaretRight} />
@@ -88,14 +84,19 @@ class Introduccion extends Component {
                 <div className="cart">
                     <div className="block-1">
                         {this.state.part1 &&
-                            <div>
+                            <div className="study">
 
 
-                                <div className="texto">
+                                <div className="text">
                                     <h2>Acento</h2>
-                                    <p>El acento es la pronunciación más fuerte de una sílaba respecto a todas las demás de la palabra.</p>
+                                    <div className="sector">
+                                        <p>El acento es la pronunciación más fuerte de una sílaba respecto a todas las demás de la palabra.</p>
+                                    </div>
 
-                                    <p>El acento gráfico o tilde es el signo que indica qué sílaba se acentúa</p>
+                                    <div className="sector">
+                                        <p>El acento gráfico o tilde es el signo que indica qué sílaba se acentúa</p>
+                                    </div>
+
                                     <span className="ejemplo">
                                         <p>-árbol</p>
                                     </span>
@@ -109,18 +110,27 @@ class Introduccion extends Component {
                             </div>
                         }
                         {this.state.part2 &&
-                            <div>
+                            <div className="questions">
+                                <div className="text">
+                                    <p className="the">La tilde es utilizada para:</p>
+                                    <div className="question">
+                                        <form onSubmit={this.submitAnswer}>
+                                            <p>
+                                                <input type="radio" id="1" name="correct" value="male2" />
+                                                <label for="1">Marcar las palabras</label>
+                                            </p>
+                                            <p>
+                                                <input type="radio" name="correct" value="male1" />
+                                        Marca donde se acentua la palabra
+                                    </p>
+                                            <p>
+                                                <input type="radio" name="correct" value="male3" />
+                                        Indica la letra
+                                    </p>
+                                        </form>
+                                    </div>
+                                </div>
 
-                                <h1>1234</h1>
-                                <p>Las 4 primeras letras que se mostraban eran...</p>
-                                <form onSubmit={this.submitAnswer}>
-                                    <input type="text" ref={this.answerRef} />
-                                    <input type="submit" name="submit" />
-                                </form>
-                                {!this.state.block &&
-                                    <button onClick={this.next.bind(this, 2)}>Siguiente</button>
-                                }
-                                <button onClick={this.next.bind(this, 1)}>Atras</button>
                             </div>
                         }
                         {this.state.part3 &&
@@ -136,7 +146,7 @@ class Introduccion extends Component {
                                 {!this.state.block &&
                                     <button onClick={this.next.bind(this, 3)}>Siguiente</button>
                                 }
-                                <button onClick={this.next.bind(this, 2)}>Atras</button>
+                                <button onClick={this.next.bind(this, 2)}>VOLVER</button>
                             </div>
                         }
                         {this.state.part4 &&
@@ -147,18 +157,25 @@ class Introduccion extends Component {
                                 <p>aabbccaabbccaabbccaabbccaabbccaabbccaabbccaabbccaabbccaabbccaabbccaabbcc</p>
 
                                 <button>Siguiente</button>
-                                <button onClick={this.bind(this, 3)}>Atras</button>
+                                <button onClick={this.bind(this, 3)}>VOLVER</button>
                             </div>
                         }
                     </div>
                     <div className="block-2">
-
-                        <button onClick={this.next.bind(this, 1)}>SIGUIENTE</button>
+                        {!this.state.inQuestion ?
+                            <button onClick={this.next}>SIGUIENTE</button>
+                            :
+                            <button id="check" onClick={this.next}>COMPROBAR</button>
+                        }
+                        
+                        {!this.state.part1 &&
+                            <button id="back" onClick={this.back}>VOLVER</button>
+                        }
                     </div>
 
                 </div>
 
-            </div>
+            </div >
         );
     }
 }
