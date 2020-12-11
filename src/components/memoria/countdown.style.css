@@ -1,12 +1,13 @@
 
 .base-timer {
+  
   box-sizing: border-box;
   font-family: monospace;
   display: grid;
   height: 90vh;
   place-items: center;
   position: relative;
-  width: 150px;
+  width: 200px !important;
   height: 300px;
 }
 
@@ -26,7 +27,7 @@
 }
 
 .base-timer__path-remaining {
-  stroke-width: 7px;
+  stroke-width: 10px;
   stroke-linecap: round;
   transform: rotate(90deg);
   transform-origin: center;
@@ -41,7 +42,7 @@
 
 .base-timer__label {
   position: absolute;
-  width: 300px;
+  width: 200px;
   height: 300px;
   top: 0;
   display: flex;

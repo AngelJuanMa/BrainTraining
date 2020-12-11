@@ -26,7 +26,7 @@ class Countdown extends Component {
                 clearInterval(timer)
                 this.props.timeOut();
                 this.setState({
-                    isIn: 2
+                    isIn: 0
                 })
             }
         }, 1000);

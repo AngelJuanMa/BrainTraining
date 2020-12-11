@@ -6,7 +6,7 @@ class Memoria extends Component {
   constructor(props) {
     super(props);
     let user = JSON.parse(localStorage.getItem("identity"));
-
+    let record = user.record
     this.state = {
       num: null,
       numerosCant: 2,
@@ -26,7 +26,8 @@ class Memoria extends Component {
       algorithm: true,
       time: 90,
       timeout: 0,
-      timeStart: false
+      timeStart: false,
+      record: record
     };
 
     this.handleInputChange = this.handleInputChange.bind(this)
@@ -111,6 +112,9 @@ class Memoria extends Component {
     })
     if (this.state.puntuacion > this.state.identity.record) {
       this.state.identity.record = this.state.puntuacion;
+      this.setState({
+        record: this.state.puntuacion
+      })
       localStorage.setItem('identity', JSON.stringify(this.state.identity))
     }
   }
@@ -224,40 +228,31 @@ class Memoria extends Component {
   }
 
   timeOut = () => {
-      console.log('timeOut')
+    console.log('timeOut')
+    this.setState({
+      timeStart: false
+    })
+    this.marckRecord()
   }
 
   render() {
     return (
       <React.Fragment>
-        <Countdown time={this.state.time} timeStart={this.state.timeStart} timeOut={this.timeOut}/> 
+
         {this.state.identity ?
           <div id="memoria">
-            <div>
-              <div id="tiempo"></div>
+            <div id="top">
+              {this.state.identity &&
+                <span id="record">{this.state.identity.record}</span>
+              }
+              <Countdown time={this.state.time} timeStart={this.state.timeStart} timeOut={this.timeOut} />
+              <span id="puntuacion">{this.state.puntuacion}</span>
             </div>
 
-            {this.state.identity &&
-              <p>Record: {this.state.identity.record}</p>
-            }
-            <p>Velocidad: {(this.state.identity.velocidad / 1000)} segundo/s</p>
-            <p>Puntuación: {this.state.puntuacion}</p>
-            <p>Bien: {this.state.bien}</p>
-            <p>Mal: {this.state.mal}</p>
-            <p>Cantidad de números: {this.state.numerosCant}</p>
-            <div>
-              <p>NÚMEROS</p>
-              <button onClick={this.incrementNumber}>Aumentar</button>
-              <button onClick={this.decrementNumber}>Bajar</button>
+            <div id="result">
+              <div id="corrects">{this.state.bien}</div>
+              <div id="bads">{this.state.mal}</div>
             </div>
-            <form>
-              <label htmlFor="letras">Letras</label>
-              <input type="checkbox" name="letras" checked={this.state.letras} onChange={this.handleInputChange} />
-              <label htmlFor="numeros">Numeros</label>
-              <input type="checkbox" name="numeros" checked={this.state.numeros} onChange={this.handleInputChange} />
-              <label htmlFor="letrasMay">Letras con mayuscula</label>
-              <input type="checkbox" name="letrasMay" checked={this.state.letrasMay} onChange={this.handleInputChange} />
-            </form>
 
             {this.state.start &&
               <form onSubmit={this.signIn}>
@@ -270,6 +265,22 @@ class Memoria extends Component {
             }
             {!this.state.start &&
               <div>
+                <p>Velocidad: {(this.state.identity.velocidad / 1000)} segundo/s</p>
+                <p>Cantidad de números: {this.state.numerosCant}</p>
+                <div>
+                  <p>NÚMEROS</p>
+                  <button onClick={this.incrementNumber}>Aumentar</button>
+                  <button onClick={this.decrementNumber}>Bajar</button>
+                </div>
+                <form>
+                  <label htmlFor="letras">Letras</label>
+                  <input type="checkbox" name="letras" checked={this.state.letras} onChange={this.handleInputChange} />
+                  <label htmlFor="numeros">Numeros</label>
+                  <input type="checkbox" name="numeros" checked={this.state.numeros} onChange={this.handleInputChange} />
+                  <label htmlFor="letrasMay">Letras con mayuscula</label>
+                  <input type="checkbox" name="letrasMay" checked={this.state.letrasMay} onChange={this.handleInputChange} />
+                </form>
+
                 <p>Velocidad</p>
                 <form >
                   <input type="text" onChange={this.aumentarVelocidad} ref={this.velocidad} placeholder="" />
