@@ -1,27 +1,34 @@
+
 #memoria
-    display: grid
-    justify-content: center
+    height: 100% !important
+    width: 100%
     #top
-        width: 600px
-        height: 300px
+        width: 100%
         color: black
         display: flex
         align-items: flex-end
         font-size: 25px !important
 
-        #record
-            width: 200px
+        #record,#countdown,#puntuacion
+            width: 33%
             height: 300px
             display: grid
             justify-content: center
             align-items: center
 
-        #puntuacion
-            width: 200px
-            height: 300px
+    #content
+        height: 65% !important
+
+        #formAns
             display: grid
             justify-content: center
             align-items: center
+        #quest
+            margin-bottom: 100px !important
+            text-align: center
+
+    #cantLetters
+        height: 15% !important
 
     #result
         #corrects
@@ -30,7 +37,50 @@
             color: green
             text-align: center
         #bads
-            margin-bottom: 22px !important
+            margin-bottom: 50px !important
             font-size: 21px
             color: #ca1111
             text-align: center
+    #form-type
+        height: 45% !important
+        .form-Num
+            display: block
+            margin-bottom: 25px !important
+
+    #cantLetters,#spanStart,#form-type
+        display: grid
+        align-content: center
+        justify-content: center
+
+    #contentStart
+        height: 100% !important
+        align-content: center
+        justify-content: center
+
+    #cantLetters, #contSpeed
+        display: flex !important
+        align-items: flex-end
+        justify-content: center
+        p
+            padding-bottom: 15px
+            padding-right: 10px
+        span
+            button
+                display: block
+
+    #contSpeed
+        p
+            padding-right: 55px
+
+    #spanStart
+        #buttonStart
+            border: 1px solid #3b823e
+            border-radius: 10px
+            background: #38ca3f
+            color: #333333
+            width: 160px
+            height: 45px
+
+@media (max-width: 750px)
+    #top
+        height: 245px !important

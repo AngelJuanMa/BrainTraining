@@ -1,6 +1,5 @@
-
 .base-timer {
-  
+
   box-sizing: border-box;
   font-family: monospace;
   display: grid;
@@ -11,10 +10,16 @@
   height: 300px;
 }
 
-/* scaleX(1) = CLOCKWISE, scaleX(-1) = ANTI-CLOCKWISE */
-.base-timer__svg {
-  transform: scaleX(1);
+@media (min-width: 750px) {
+  .base-timer__svg {
+    transform: scale(1) !important;
+  }
 }
+.base-timer__svg {
+  transform: scale(0.7);
+}
+/* scaleX(1) = CLOCKWISE, scaleX(-1) = ANTI-CLOCKWISE */
+
 
 .base-timer__circle {
   fill: none;

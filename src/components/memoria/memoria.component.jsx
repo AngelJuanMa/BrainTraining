@@ -1,12 +1,18 @@
 import React, { Component } from "react";
 import "./memoria.style.sass";
 import Countdown from './countdown';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faChevronUp,
+  faChevronDown
+} from "@fortawesome/free-solid-svg-icons";
 
 class Memoria extends Component {
   constructor(props) {
     super(props);
     let user = JSON.parse(localStorage.getItem("identity"));
-    let record = user.record
+
+
     this.state = {
       num: null,
       numerosCant: 2,
@@ -27,8 +33,16 @@ class Memoria extends Component {
       time: 90,
       timeout: 0,
       timeStart: false,
-      record: record
+      record: null
     };
+
+    if (user !== null) {
+      let record = user.recrod
+      this.setState({
+        record: record
+      })
+
+    }
 
     this.handleInputChange = this.handleInputChange.bind(this)
   }
@@ -36,6 +50,26 @@ class Memoria extends Component {
   answer = React.createRef();
   name = React.createRef();
   velocidad = React.createRef();
+
+  componentWillMount() {
+    let user = JSON.parse(localStorage.getItem("identity"));
+    if (user === null) {
+      let user = {
+        velocidad: 1000,
+        bien: 0,
+        mal: 0,
+        numeros: 0,
+        palabras: 0,
+        letras: 0,
+        dias: 0,
+        record: 0
+      }
+      localStorage.setItem('identity', JSON.stringify(user));
+      this.setState({
+        identity: user
+      })
+    }
+  }
 
   handleInputChange(event) {
     const target = event.target;
@@ -119,7 +153,7 @@ class Memoria extends Component {
     }
   }
 
-  signIn = (e) => {
+  answerTheForm = (e) => {
     e.preventDefault();
 
     var stop = this.state.bien + Math.abs(this.state.mal);
@@ -155,45 +189,23 @@ class Memoria extends Component {
     this.randomNumber();
   }
 
-  aumentarVelocidad = (e) => {
-    e.preventDefault();
-    var velocidadRef = this.velocidad.current.value
-    console.log(velocidadRef)
-    if (isNaN(velocidadRef)) {
-      this.velocidad.current.value = ''
-      return alert('Ingrese solo numeros')
-    }
-    if (velocidadRef === "0") {
-      this.velocidad.current.value = ''
-      return alert('Ingrese un numero mayor a 0')
-    }
-    if (velocidadRef === '') return
-    let nuevaVelocidad = (velocidadRef * 1000);
-    this.state.identity.velocidad = nuevaVelocidad;
+  incrementSpeed = (e) => {
+    let speed = this.state.identity.velocidad += 1000
     this.setState({
       identity: this.state.identity
     })
     localStorage.setItem('identity', JSON.stringify(this.state.identity));
   }
 
-  logIn = (e) => {
-    e.preventDefault();
-    let user = {
-      alias: this.name.current.value,
-      velocidad: 1000,
-      bien: 0,
-      mal: 0,
-      numeros: 0,
-      palabras: 0,
-      letras: 0,
-      dias: 0,
-      record: 0
-    }
-    localStorage.setItem('identity', JSON.stringify(user));
+  decrementSpeed = (e) => {
+    if (this.state.identity.velocidad === 1000) return ''
+    this.state.identity.velocidad -= 1000
     this.setState({
-      identity: user
+      identity: this.state.identity
     })
+    localStorage.setItem('identity', JSON.stringify(this.state.identity));
   }
+
 
   changeSpeedAlgorithm(answerRes) {
     var speed = this.state.changeSpeed
@@ -245,53 +257,80 @@ class Memoria extends Component {
               {this.state.identity &&
                 <span id="record">{this.state.identity.record}</span>
               }
-              <Countdown time={this.state.time} timeStart={this.state.timeStart} timeOut={this.timeOut} />
+              <span id="countdown">
+                <Countdown time={this.state.time} timeStart={this.state.timeStart} timeOut={this.timeOut} />
+              </span>
+
               <span id="puntuacion">{this.state.puntuacion}</span>
             </div>
-
-            <div id="result">
-              <div id="corrects">{this.state.bien}</div>
-              <div id="bads">{this.state.mal}</div>
-            </div>
-
-            {this.state.start &&
-              <form onSubmit={this.signIn}>
-                <input type="text" ref={this.answer} />
-              </form>
-            }
-
-            {this.state.ver &&
-              <p>{this.state.num}</p>
-            }
-            {!this.state.start &&
-              <div>
-                <p>Velocidad: {(this.state.identity.velocidad / 1000)} segundo/s</p>
-                <p>Cantidad de números: {this.state.numerosCant}</p>
+            <div id="content">
+              {this.state.start &&
                 <div>
-                  <p>NÚMEROS</p>
-                  <button onClick={this.incrementNumber}>Aumentar</button>
-                  <button onClick={this.decrementNumber}>Bajar</button>
+                  <div id="result">
+                    <div id="corrects">{this.state.bien}</div>
+                    <div id="bads">{this.state.mal}</div>
+                  </div>
+                  <p id="quest">{this.state.num}</p>
+                  <form id="formAns" onSubmit={this.answerTheForm}>
+                    <input type="text" ref={this.answer} />
+                  </form>
                 </div>
-                <form>
-                  <label htmlFor="letras">Letras</label>
-                  <input type="checkbox" name="letras" checked={this.state.letras} onChange={this.handleInputChange} />
-                  <label htmlFor="numeros">Numeros</label>
-                  <input type="checkbox" name="numeros" checked={this.state.numeros} onChange={this.handleInputChange} />
-                  <label htmlFor="letrasMay">Letras con mayuscula</label>
-                  <input type="checkbox" name="letrasMay" checked={this.state.letrasMay} onChange={this.handleInputChange} />
-                </form>
-
-                <p>Velocidad</p>
-                <form >
-                  <input type="text" onChange={this.aumentarVelocidad} ref={this.velocidad} placeholder="" />
-                </form>
-                <button onClick={this.start}>Empezar</button>
-              </div>
-            }
+              }
 
 
+              {!this.state.start &&
+                <div id="contentStart">
+                  <div id="contSpeed">
+                    <p>Velocidad: {(this.state.identity.velocidad / 1000)} s</p>
+                    <span>
+                      <button onClick={this.incrementSpeed}>
+                        <FontAwesomeIcon icon={faChevronUp} />
+                      </button>
+                      <button onClick={this.decrementSpeed}>
+                        <FontAwesomeIcon icon={faChevronDown} />
+                      </button>
+                    </span>
+                  </div>
+                  <div id="cantLetters">
+                    <p>Letras y numeros: {this.state.numerosCant}</p>
+                    <span>
+                      <button onClick={this.incrementNumber}>
+                        <FontAwesomeIcon icon={faChevronUp} />
+                      </button>
+                      <button onClick={this.decrementNumber}>
+                        <FontAwesomeIcon icon={faChevronDown} />
+                      </button>
+                    </span>
+                  </div>
+                  <form id="form-type">
+
+                    <span className="form-Num">
+                      <input type="checkbox" name="letras" checked={this.state.letras} onChange={this.handleInputChange} />
+                      <label htmlFor="letras">Letras en minuscula</label>
+                    </span>
+
+                    <span className="form-Num">
+                      <input type="checkbox" name="letrasMay" checked={this.state.letrasMay} onChange={this.handleInputChange} />
+                      <label htmlFor="letrasMay">Letras en mayuscula</label>
+                    </span>
+
+                    <span className="form-Num">
+                      <input type="checkbox" name="numeros" checked={this.state.numeros} onChange={this.handleInputChange} />
+                      <label htmlFor="numeros">Números</label>
+                    </span>
+
+                  </form>
+
+                  <span id="spanStart">
+                    <button id="buttonStart" onClick={this.start}>Empezar</button>
+                  </span>
+
+                </div>
+              }
+
+
+            </div>
           </div>
-
           : <div>
             <p>Ingrese su nombre</p>
             <form onSubmit={this.logIn}>

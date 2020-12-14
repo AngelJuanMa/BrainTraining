@@ -59,11 +59,12 @@ class Countdown extends Component {
                             </g>
                         </svg>
                         <span id="base-timer-label" class="base-timer__label">
-                            {this.state.timeLeft > 60
-                                ?
-                                <p>1:{this.state.timeLeft - 60}</p>
-                                :
-                                <p>0:{this.state.timeLeft}</p>
+                            {this.state.timeLeft > 69 || this.state.timeLeft > 69 === 0
+                                ? <p>1:{this.state.timeLeft - 60}</p>
+                                : (this.state.timeLeft > 60
+                                    ? <p>1:0{this.state.timeLeft - 60}</p>
+                                    : <p>{this.state.timeLeft}</p>
+                                )
                             }
                         </span>
                     </div>
