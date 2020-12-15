@@ -75,10 +75,16 @@ class Memoria extends Component {
     const target = event.target;
     const name = target.name;
     var value;
+
+    let cantOfTrue = 0
+    if(this.state.letrasMay === true) cantOfTrue += 1;
+    if(this.state.letras === true) cantOfTrue += 1;
+    if(this.state.numeros === true) cantOfTrue += 1;
+    if(cantOfTrue === 1 && target.checked === false) return ''
+
     if (name === 'letras') value = target.checked;
     else if (name === 'numeros') value = target.checked;
     else if (name === 'letrasMay') value = target.checked;
-    else if (name === 'algorithm') value = target.checked;
 
     this.setState({
       [name]: value
@@ -190,7 +196,8 @@ class Memoria extends Component {
   }
 
   incrementSpeed = (e) => {
-    let speed = this.state.identity.velocidad += 1000
+    console.log("t")
+    this.state.identity.velocidad += 1000
     this.setState({
       identity: this.state.identity
     })
@@ -250,8 +257,6 @@ class Memoria extends Component {
   render() {
     return (
       <React.Fragment>
-
-        {this.state.identity ?
           <div id="memoria">
             <div id="top">
               {this.state.identity &&
@@ -331,16 +336,6 @@ class Memoria extends Component {
 
             </div>
           </div>
-          : <div>
-            <p>Ingrese su nombre</p>
-            <form onSubmit={this.logIn}>
-              <input type="text" ref={this.name} placeholder="NOMBRE" />
-
-              <input type="submit" name="submit" />
-            </form>
-          </div>
-        }
-
       </React.Fragment>
     );
   }

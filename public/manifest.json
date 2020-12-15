@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Brain Training",
+  "name": "Quieres memorizar más rápido, aprender palabras en ingles o aprender ortografía...",
   "icons": [
     {
       "src": "favicon.ico",

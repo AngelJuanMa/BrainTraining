@@ -8,34 +8,35 @@ class Principal extends Component {
         return (
             <div id="main">
                 <div id="header">
-                    <h1>TITULO</h1>
+                    <h1>BrainTraining</h1>
                 </div>
                 <div id="nav">
                     <div className="components" id="primero">
-                        <div className="cuadrado">
-                            <NavLink to="/memoria">
+                        <div className="cuadrado" id="comp1">
+                            <NavLink style={{ textDecoration: 'none', color: 'black' }} to="/memoria">
                                 <div className="cuadrado2">
+                                    <p>Memoria</p>
                                 </div>
                             </NavLink>
-                            <p>Memoria</p>
                         </div>
                     </div>
                     <div className="components" id="cuadrados">
-                        <div className="cuadrado" >
-                            <NavLink to="/lengua">
+                        <div className="cuadrado" id="comp2" >
+                            <NavLink style={{ textDecoration: 'none', color: 'black' }} to="/lengua">
                                 <div className="cuadrado2">
+                                    <p>Ortogría</p>
                                 </div>
                             </NavLink>
-                            <p>Ortogría</p>
+
                         </div>
                     </div>
                     <div className="components">
-                        <div className="cuadrado">
-                            <NavLink to="/ingles">
+                        <div className="cuadrado" id="comp3">
+                            <NavLink style={{ textDecoration: 'none', color: 'black' }} to="/ingles">
                                 <div className="cuadrado2">
+                                    <p>Ingles</p>
                                 </div>
                             </NavLink>
-                            <p>Ingles</p>
                         </div>
                     </div>
                 </div>

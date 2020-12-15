@@ -2,15 +2,21 @@
 #memoria
     height: 100% !important
     width: 100%
+    color: #333333
+    button
+        position: relative
+        z-index: 3
     #top
         width: 100%
         color: black
         display: flex
         align-items: flex-end
         font-size: 25px !important
+        #countdown
+            width: 0  !important
 
         #record,#countdown,#puntuacion
-            width: 33%
+            width: 51%
             height: 280px
             display: grid
             justify-content: center
@@ -33,11 +39,11 @@
         #corrects
             margin-bottom: 22px !important
             font-size: 21px
-            color: green
+            color: green !important
             text-align: center
         #bads
             font-size: 21px
-            color: #ca1111
+            color: #ca1111 !important
             text-align: center
     #form-type
         height: 45% !important
@@ -78,6 +84,13 @@
             color: #333333
             width: 160px
             height: 45px
+            transition: ease-in-out
+            transition: 0.4s
+        #buttonStart:hover,#buttonStart:focus
+            border: 1px solid #275829
+            background: #33b539
+            color: #181818
+            transform: scale(1.1)
 
 @media (max-width: 750px)
     #top

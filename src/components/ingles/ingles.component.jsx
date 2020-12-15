@@ -2087,79 +2087,82 @@ class Ingles extends Component {
             'cuello'
         ]
         return (
-            <div>
-                <h1>English</h1>
-                <div id="select">
-                    <select value={this.state.cantOfWords} onChange={this.handleChange} name="select">
-                        <option value="Day" selected>Day</option>
-                        <option value="Week">Week</option>
-                        <option value="All">All</option>
-                    </select>
-                </div>
+            <div id="ingles">
+                <h1>Ingles</h1>
 
                 {!this.state.words &&
-                    <div>
-                        <button onClick={this.setWords.bind(this, 5)}>Normal 5</button>
-                        <button onClick={this.setWords.bind(this, 10)}>Avanzado 10</button>
-                        <button onClick={this.setWords.bind(this, 15)}>Experto 15</button>
+                    <div id="choose">
+                        <p>Elige la cantidad de letras que quieres aprender por día, estas serán visualizadas en forma de tabla con su traducción y pronunciación, ademas de que podrás ver todas las palabras o las de la semana.</p>
+                        <button onClick={this.setWords.bind(this, 5)}>Fácil 5</button>
+                        <button onClick={this.setWords.bind(this, 10)}>Normal 10</button>
+                        <button onClick={this.setWords.bind(this, 15)}>Difícil 15</button>
                     </div>
                 }
                 {this.state.words &&
-                    <table role="table">
-                        <thead role="rowgroup">
-                            <tr role="row">
-                                <th role="columnheader">
-                                    Número
-                                </th>
-                                <th role="columnheader">
-                                    Palabra en Inglés
-                                </th>
-                                <th role="columnheader">
-                                    Traducción
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody role="rowgroup">
-                            {this.state.cantOfWords === "Day" ?
-                                this.state.wordsToLearn.map((words, i) => {
-                                    if (i >= (this.state.days - 1) * this.state.words && i < this.state.totalWords) {
-                                        return (
-                                            <tr role="row">
-                                                <td role="cell">{i + 1}</td>
-                                                <td role="cell" key={i}>{words}</td>
-                                                <td role="cell">{palabras[i]}</td>
-                                            </tr>
-                                        );
-                                    }
-                                })
-                                : this.state.cantOfWords === "All" ?
-                                    this.state.wordsToLearn.map((words, i) => {
-                                        if (i < this.state.totalWords) {
-                                            return (
-                                                <tr role="row">
-                                                    <td role="cell">{i + 1}</td>
-                                                    <td role="cell" key={i}>{words}</td>
-                                                    <td role="cell">{palabras[i]}</td>
-                                                </tr>
-                                            );
-                                        }
-                                    })
-                                    :
-                                    this.state.wordsToLearn.map((words, i) => {
-                                        if (i >= (this.state.days - 7) * this.state.words && i < this.state.totalWords) {
-                                            return (
-                                                <tr role="row">
-                                                    <td role="cell">{i + 1}</td>
-                                                    <td role="cell" key={i}>{words}</td>
-                                                    <td role="cell">{palabras[i]}</td>
-                                                </tr>
-                                            );
-                                        }
-                                    })
-                            }
-                        </tbody>
-                    </table>
+                    <div>
+                        <div id="select">
+                            <select value={this.state.cantOfWords} onChange={this.handleChange} name="select">
+                                <option value="Day" selected>Day</option>
+                                <option value="Week">Week</option>
+                                <option value="All">All</option>
+                            </select>
+                        </div>
 
+                        <table role="table">
+                            <thead role="rowgroup">
+                                <tr role="row">
+                                    <th role="columnheader">
+                                        Número
+                                </th>
+                                    <th role="columnheader">
+                                        Palabra en Inglés
+                                </th>
+                                    <th role="columnheader">
+                                        Traducción
+                                </th>
+                                </tr>
+                            </thead>
+                            <tbody role="rowgroup">
+                                {this.state.cantOfWords === "Day" ?
+                                    this.state.wordsToLearn.map((words, i) => {
+                                        if (i >= (this.state.days - 1) * this.state.words && i < this.state.totalWords) {
+                                            return (
+                                                <tr role="row">
+                                                    <td role="cell">{i + 1}</td>
+                                                    <td role="cell" key={i}>{words}</td>
+                                                    <td role="cell">{palabras[i]}</td>
+                                                </tr>
+                                            );
+                                        }
+                                    })
+                                    : this.state.cantOfWords === "All" ?
+                                        this.state.wordsToLearn.map((words, i) => {
+                                            if (i < this.state.totalWords) {
+                                                return (
+                                                    <tr role="row">
+                                                        <td role="cell">{i + 1}</td>
+                                                        <td role="cell" key={i}>{words}</td>
+                                                        <td role="cell">{palabras[i]}</td>
+                                                    </tr>
+                                                );
+                                            }
+                                        })
+                                        :
+                                        this.state.wordsToLearn.map((words, i) => {
+                                            if (i >= (this.state.days - 7) * this.state.words && i < this.state.totalWords) {
+                                                return (
+                                                    <tr role="row">
+                                                        <td role="cell">{i + 1}</td>
+                                                        <td role="cell" key={i}>{words}</td>
+                                                        <td role="cell">{palabras[i]}</td>
+                                                    </tr>
+                                                );
+                                            }
+                                        })
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 }
             </div>
         );
