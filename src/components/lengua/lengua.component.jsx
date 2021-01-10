@@ -1,13 +1,8 @@
 import React, { Component } from "react";
 import "./lengua.style.sass";
-import { NavLink, Redirect } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 class Lengua extends Component {
-    constructor(props) {
-        super(props);
-        let user = JSON.parse(localStorage.getItem("identity"));
-
-    }
 
     render() {
         return (

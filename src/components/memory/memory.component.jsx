@@ -100,7 +100,7 @@ class Memory extends Component {
 
   decrementNumber = (e) => {
     var cantidadDeNumeros = this.state.numerosCant;
-    if (cantidadDeNumeros === 2) return alert('demasiado');
+    if (cantidadDeNumeros === 2) return ""
     this.setState({
       numerosCant: cantidadDeNumeros - 1
     })
@@ -166,10 +166,6 @@ class Memory extends Component {
     this.setState({
       stop: stop
     })
-    const timerVal = setTimeout(() => {
-      if (stop === this.state.stop) this.setState({ ver: false })
-    }, this.state.identity.velocidad);
-
     var res = this.answer.current.value
     this.answer.current.value = null;
     if (res === this.state.num.join('')) {
@@ -204,7 +200,7 @@ class Memory extends Component {
   }
 
   decrementSpeed = (e) => {
-    if (this.state.identity.velocidad === 1000) return ''
+    if (this.state.identity.velocidad === 1000) return null
     this.state.identity.velocidad -= 1000
     this.setState({
       identity: this.state.identity

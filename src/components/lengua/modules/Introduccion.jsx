@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { NavLink, Redirect } from "react-router-dom";
 import "./Introduccion.style.sass";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -10,8 +9,6 @@ import {
 class Introduccion extends Component {
     constructor(props) {
         super(props);
-        let user = JSON.parse(localStorage.getItem("identity"));
-
         this.state = {
             part1: true,
             part2: false,
@@ -78,8 +75,8 @@ class Introduccion extends Component {
                     <h1>Introducción</h1>
                 </main>
                 <div className="status">
-                    <FontAwesomeIcon className="iconMenu" className="play" id="now" icon={faCaretRight} />
-                    <FontAwesomeIcon className="iconMenu" className="noFirst" className="question" icon={faQuestion} />
+                    <FontAwesomeIcon className="iconMenu play" id="now" icon={faCaretRight} />
+                    <FontAwesomeIcon className="iconMenu noFirst question" icon={faQuestion} />
                 </div>
                 <div className="cart">
                     <div className="block-1">

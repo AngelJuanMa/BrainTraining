@@ -35,7 +35,7 @@ class English extends Component {
         var date = new Date()
         var dates = date.getDate();
         var totalWords = days * words;
-        if (localStorage.getItem('lastDate') == !dates) {
+        if (localStorage.getItem('lastDate') === !dates) {
             localStorage.setItem('lastDate', dates);
             localStorage.setItem('Days', this.setState.days + 1);
             totalWords = (days + 1) * words
@@ -53,7 +53,6 @@ class English extends Component {
 
 
     showWord = (e) => {
-        var dias = localStorage.getItem('lastDay');
         var words = ['the',
             'of',
             'to',
@@ -2109,7 +2108,7 @@ class English extends Component {
                         </div>
 
                         <table role="table">
-                            <thead role="rowgroup">
+                            <thead>
                                 <tr role="row">
                                     <th role="columnheader">
                                         Número
@@ -2122,7 +2121,7 @@ class English extends Component {
                                 </th>
                                 </tr>
                             </thead>
-                            <tbody role="rowgroup">
+                            <tbody>
                                 {this.state.cantOfWords === "Day" ?
                                     this.state.wordsToLearn.map((words, i) => {
                                         if (i >= (this.state.days - 1) * this.state.words && i < this.state.totalWords) {
@@ -2133,7 +2132,7 @@ class English extends Component {
                                                     <td role="cell">{palabras[i]}</td>
                                                 </tr>
                                             );
-                                        }
+                                        }else return null;
                                     })
                                     : this.state.cantOfWords === "All" ?
                                         this.state.wordsToLearn.map((words, i) => {
@@ -2145,7 +2144,7 @@ class English extends Component {
                                                         <td role="cell">{palabras[i]}</td>
                                                     </tr>
                                                 );
-                                            }
+                                            }else return null;
                                         })
                                         :
                                         this.state.wordsToLearn.map((words, i) => {
@@ -2157,7 +2156,7 @@ class English extends Component {
                                                         <td role="cell">{palabras[i]}</td>
                                                     </tr>
                                                 );
-                                            }
+                                            }else return null;
                                         })
                                 }
                             </tbody>

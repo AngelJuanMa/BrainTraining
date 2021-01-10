@@ -1,15 +1,14 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { Component } from "react";
 import "./countdown.style.css";
 class Countdown extends Component {
     constructor(props) {
         super(props);
-        let time =
-            this.state = {
-                time_limit: this.props.time,
-                timeLeft: this.props.time,
-                timePassed: 1,
-                isIn: 0
-            };
+        this.state = {
+            time_limit: this.props.time,
+            timeLeft: this.props.time,
+            timePassed: 1,
+            isIn: 0
+        };
 
     }
 
@@ -20,9 +19,9 @@ class Countdown extends Component {
         var timer = setInterval(() => {
             this.setState({
                 timeLeft: this.state.time_limit - this.state.timePassed,
-                timePassed: this.state.timePassed += 1
+                timePassed: this.state.timePassed + 1
             })
-            if (this.state.timeLeft == 0) {
+            if (this.state.timeLeft === 0) {
                 clearInterval(timer)
                 this.props.timeOut();
                 this.setState({
@@ -59,7 +58,7 @@ class Countdown extends Component {
                             </g>
                         </svg>
                         <span id="base-timer-label" class="base-timer__label">
-                            {this.state.timeLeft > 69 || this.state.timeLeft > 69 === 0
+                            {this.state.timeLeft > 69 || this.state.timeLeft > 69
                                 ? <p>1:{this.state.timeLeft - 60}</p>
                                 : (this.state.timeLeft > 60
                                     ? <p>1:0{this.state.timeLeft - 60}</p>

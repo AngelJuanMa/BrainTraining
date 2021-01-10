@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './assets/App.css';
 import Nav from './components/nav/nav.component.jsx';
 import Memory from './components/memory/memory.component.jsx';
