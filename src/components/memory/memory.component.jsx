@@ -161,7 +161,9 @@ class Memory extends Component {
 
   answerTheForm = (e) => {
     e.preventDefault();
-
+    const timerVal = setTimeout(() => {
+      this.setState({ ver: false })
+    }, 1000);
     var stop = this.state.bien + Math.abs(this.state.mal);
     this.setState({
       stop: stop
@@ -269,7 +271,10 @@ class Memory extends Component {
                   <div id="corrects">{this.state.bien}</div>
                   <div id="bads">{this.state.mal}</div>
                 </div>
-                <p id="quest">{this.state.num}</p>
+                {this.state.ver &&
+                  <p id="quest">{this.state.num}</p>
+                }
+
                 <form id="formAns" onSubmit={this.answerTheForm}>
                   <input type="text" ref={this.answer} />
                 </form>
