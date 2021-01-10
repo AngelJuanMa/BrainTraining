@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/BrainTraining/static/css/main.a4fa84c1.chunk.css",
-    "main.js": "/BrainTraining/static/js/main.89785f58.chunk.js",
-    "main.js.map": "/BrainTraining/static/js/main.89785f58.chunk.js.map",
+    "main.js": "/BrainTraining/static/js/main.ce20e891.chunk.js",
+    "main.js.map": "/BrainTraining/static/js/main.ce20e891.chunk.js.map",
     "runtime-main.js": "/BrainTraining/static/js/runtime-main.1f095783.js",
     "runtime-main.js.map": "/BrainTraining/static/js/runtime-main.1f095783.js.map",
     "static/js/2.5df996f4.chunk.js": "/BrainTraining/static/js/2.5df996f4.chunk.js",
     "static/js/2.5df996f4.chunk.js.map": "/BrainTraining/static/js/2.5df996f4.chunk.js.map",
     "index.html": "/BrainTraining/index.html",
-    "precache-manifest.5511e3dedf62d58b937744f10fe96541.js": "/BrainTraining/precache-manifest.5511e3dedf62d58b937744f10fe96541.js",
+    "precache-manifest.23a53ed7d4350ef353b1cd6b97c0f8f6.js": "/BrainTraining/precache-manifest.23a53ed7d4350ef353b1cd6b97c0f8f6.js",
     "service-worker.js": "/BrainTraining/service-worker.js",
     "static/css/main.a4fa84c1.chunk.css.map": "/BrainTraining/static/css/main.a4fa84c1.chunk.css.map",
     "static/js/2.5df996f4.chunk.js.LICENSE.txt": "/BrainTraining/static/js/2.5df996f4.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.1f095783.js",
     "static/js/2.5df996f4.chunk.js",
     "static/css/main.a4fa84c1.chunk.css",
-    "static/js/main.89785f58.chunk.js"
+    "static/js/main.ce20e891.chunk.js"
   ]
 }
