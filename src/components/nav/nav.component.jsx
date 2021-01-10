@@ -1,19 +1,19 @@
 import React, { Component } from "react";
-import "./principal.style.sass";
+import "./nav.style.sass";
 import { NavLink, Redirect } from "react-router-dom";
 
-class Principal extends Component {
+class Nav extends Component {
 
     render() {
         return (
             <div id="main">
                 <div id="header">
-                    <h1>BrainTraining</h1>
+                    <h1>BRAIN TRAINING</h1>
                 </div>
                 <div id="nav">
                     <div className="components" id="primero">
                         <div className="cuadrado" id="comp1">
-                            <NavLink style={{ textDecoration: 'none', color: 'black' }} to="/memoria">
+                            <NavLink style={{ textDecoration: 'none', color: 'black' }} to="/Memory">
                                 <div className="cuadrado2">
                                     <p>Memoria</p>
                                 </div>
@@ -32,7 +32,7 @@ class Principal extends Component {
                     </div>
                     <div className="components">
                         <div className="cuadrado" id="comp3">
-                            <NavLink style={{ textDecoration: 'none', color: 'black' }} to="/ingles">
+                            <NavLink style={{ textDecoration: 'none', color: 'black' }} to="/English">
                                 <div className="cuadrado2">
                                     <p>Ingles</p>
                                 </div>
@@ -45,4 +45,4 @@ class Principal extends Component {
     }
 }
 
-export default Principal;
+export default Nav;

@@ -1,39 +1,39 @@
 import React, { Component } from "react";
-import "./memoria.style.sass";
-import Countdown from './countdown';
+import "./memory.style.sass";
+import Countdown from './countDown/countdown';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronUp,
   faChevronDown
 } from "@fortawesome/free-solid-svg-icons";
 
-class Memoria extends Component {
+class Memory extends Component {
   constructor(props) {
     super(props);
     let user = JSON.parse(localStorage.getItem("identity"));
 
 
     this.state = {
-      num: null,
-      numerosCant: 2,
-      numerosCantActual: 2,
+      identity: user,
       bien: 0,
       mal: 0,
-      puntuacion: 0,
-      identity: user,
-      ver: true,
-      clear: false,
-      start: false,
+      score: 0,
       stop: 0,
-      letrasMay: true,
+      changeSpeed: 0,
+      timeout: 0,
+      numerosCant: 2,
+      numerosCantActual: 2,
+      time: 90,
+      ver: true,
       letras: true,
       numeros: true,
-      changeSpeed: 0,
       algorithm: true,
-      time: 90,
-      timeout: 0,
+      letrasMay: true,
+      clear: false,
+      start: false,
       timeStart: false,
-      record: null
+      record: null,
+      num: null
     };
 
     if (user !== null) {
@@ -77,10 +77,10 @@ class Memoria extends Component {
     var value;
 
     let cantOfTrue = 0
-    if(this.state.letrasMay === true) cantOfTrue += 1;
-    if(this.state.letras === true) cantOfTrue += 1;
-    if(this.state.numeros === true) cantOfTrue += 1;
-    if(cantOfTrue === 1 && target.checked === false) return ''
+    if (this.state.letrasMay === true) cantOfTrue += 1;
+    if (this.state.letras === true) cantOfTrue += 1;
+    if (this.state.numeros === true) cantOfTrue += 1;
+    if (cantOfTrue === 1 && target.checked === false) return ''
 
     if (name === 'letras') value = target.checked;
     else if (name === 'numeros') value = target.checked;
@@ -136,7 +136,7 @@ class Memoria extends Component {
     this.randomNumber();
     this.timeOut();
     this.setState({
-      puntuacion: 0,
+      score: 0,
       mal: 0,
       bien: 0,
       start: true
@@ -150,10 +150,10 @@ class Memoria extends Component {
     this.setState({
       start: false
     })
-    if (this.state.puntuacion > this.state.identity.record) {
-      this.state.identity.record = this.state.puntuacion;
+    if (this.state.score > this.state.identity.record) {
+      this.state.identity.record = this.state.score;
       this.setState({
-        record: this.state.puntuacion
+        record: this.state.score
       })
       localStorage.setItem('identity', JSON.stringify(this.state.identity))
     }
@@ -175,11 +175,11 @@ class Memoria extends Component {
     if (res === this.state.num.join('')) {
       if (this.state.algorithm) this.changeSpeedAlgorithm("WELL");
 
-      var value = (this.state.puntuacion + (this.state.numerosCantActual * 10) / (this.state.identity.velocidad / 1000))
+      var value = (this.state.score + (this.state.numerosCantActual * 10) / (this.state.identity.velocidad / 1000))
       value = Math.round(value);
       this.setState({
         bien: this.state.bien + 1,
-        puntuacion: value,
+        score: value,
         clear: true
       });
     }
@@ -196,7 +196,6 @@ class Memoria extends Component {
   }
 
   incrementSpeed = (e) => {
-    console.log("t")
     this.state.identity.velocidad += 1000
     this.setState({
       identity: this.state.identity
@@ -217,15 +216,15 @@ class Memoria extends Component {
   changeSpeedAlgorithm(answerRes) {
     var speed = this.state.changeSpeed
     var numerosCant = this.state.numerosCant
-    console.log(numerosCant)
     if (answerRes === 'WELL') {
       this.setState({
         changeSpeed: speed + 1
       })
+    } else {
+      this.setState({
+        changeSpeed: speed - 1
+      })
     }
-    if (answerRes === 'BAD') this.setState({
-      changeSpeed: speed - 1
-    })
 
     if (speed === 2) {
       this.setState({
@@ -247,7 +246,6 @@ class Memoria extends Component {
   }
 
   timeOut = () => {
-    console.log('timeOut')
     this.setState({
       timeStart: false
     })
@@ -257,88 +255,88 @@ class Memoria extends Component {
   render() {
     return (
       <React.Fragment>
-          <div id="memoria">
-            <div id="top">
-              {this.state.identity &&
-                <span id="record">{this.state.identity.record}</span>
-              }
-              <span id="countdown">
-                <Countdown time={this.state.time} timeStart={this.state.timeStart} timeOut={this.timeOut} />
-              </span>
+        <div id="memoria">
+          <div id="top">
+            {this.state.identity &&
+              <span id="record">{this.state.identity.record}</span>
+            }
+            <span id="countdown">
+              <Countdown time={this.state.time} timeStart={this.state.timeStart} timeOut={this.timeOut} />
+            </span>
 
-              <span id="puntuacion">{this.state.puntuacion}</span>
-            </div>
-            <div id="content">
-              {this.state.start &&
-                <div>
-                  <div id="result">
-                    <div id="corrects">{this.state.bien}</div>
-                    <div id="bads">{this.state.mal}</div>
-                  </div>
-                  <p id="quest">{this.state.num}</p>
-                  <form id="formAns" onSubmit={this.answerTheForm}>
-                    <input type="text" ref={this.answer} />
-                  </form>
+            <span id="score">{this.state.score}</span>
+          </div>
+          <div id="content">
+            {this.state.start &&
+              <div>
+                <div id="result">
+                  <div id="corrects">{this.state.bien}</div>
+                  <div id="bads">{this.state.mal}</div>
                 </div>
-              }
+                <p id="quest">{this.state.num}</p>
+                <form id="formAns" onSubmit={this.answerTheForm}>
+                  <input type="text" ref={this.answer} />
+                </form>
+              </div>
+            }
 
 
-              {!this.state.start &&
-                <div id="contentStart">
-                  <div id="contSpeed">
-                    <p>Velocidad: {(this.state.identity.velocidad / 1000)} s</p>
-                    <span>
-                      <button onClick={this.incrementSpeed}>
-                        <FontAwesomeIcon icon={faChevronUp} />
-                      </button>
-                      <button onClick={this.decrementSpeed}>
-                        <FontAwesomeIcon icon={faChevronDown} />
-                      </button>
-                    </span>
-                  </div>
-                  <div id="cantLetters">
-                    <p>Letras y numeros: {this.state.numerosCant}</p>
-                    <span>
-                      <button onClick={this.incrementNumber}>
-                        <FontAwesomeIcon icon={faChevronUp} />
-                      </button>
-                      <button onClick={this.decrementNumber}>
-                        <FontAwesomeIcon icon={faChevronDown} />
-                      </button>
-                    </span>
-                  </div>
-                  <form id="form-type">
+            {!this.state.start &&
+              <div id="contentStart">
+                <div id="contSpeed">
+                  <p>Velocidad: {(this.state.identity.velocidad / 1000)} s</p>
+                  <span>
+                    <button onClick={this.incrementSpeed}>
+                      <FontAwesomeIcon icon={faChevronUp} />
+                    </button>
+                    <button onClick={this.decrementSpeed}>
+                      <FontAwesomeIcon icon={faChevronDown} />
+                    </button>
+                  </span>
+                </div>
+                <div id="cantLetters">
+                  <p>Letras y numeros: {this.state.numerosCant}</p>
+                  <span>
+                    <button onClick={this.incrementNumber}>
+                      <FontAwesomeIcon icon={faChevronUp} />
+                    </button>
+                    <button onClick={this.decrementNumber}>
+                      <FontAwesomeIcon icon={faChevronDown} />
+                    </button>
+                  </span>
+                </div>
+                <form id="form-type">
 
-                    <span className="form-Num">
-                      <input type="checkbox" name="letras" checked={this.state.letras} onChange={this.handleInputChange} />
-                      <label htmlFor="letras">Letras en minuscula</label>
-                    </span>
-
-                    <span className="form-Num">
-                      <input type="checkbox" name="letrasMay" checked={this.state.letrasMay} onChange={this.handleInputChange} />
-                      <label htmlFor="letrasMay">Letras en mayuscula</label>
-                    </span>
-
-                    <span className="form-Num">
-                      <input type="checkbox" name="numeros" checked={this.state.numeros} onChange={this.handleInputChange} />
-                      <label htmlFor="numeros">Números</label>
-                    </span>
-
-                  </form>
-
-                  <span id="spanStart">
-                    <button id="buttonStart" onClick={this.start}>Empezar</button>
+                  <span className="form-Num">
+                    <input type="checkbox" name="letras" checked={this.state.letras} onChange={this.handleInputChange} />
+                    <label htmlFor="letras">Letras en minuscula</label>
                   </span>
 
-                </div>
-              }
+                  <span className="form-Num">
+                    <input type="checkbox" name="letrasMay" checked={this.state.letrasMay} onChange={this.handleInputChange} />
+                    <label htmlFor="letrasMay">Letras en mayuscula</label>
+                  </span>
+
+                  <span className="form-Num">
+                    <input type="checkbox" name="numeros" checked={this.state.numeros} onChange={this.handleInputChange} />
+                    <label htmlFor="numeros">Números</label>
+                  </span>
+
+                </form>
+
+                <span id="spanStart">
+                  <button id="buttonStart" onClick={this.start}>Empezar</button>
+                </span>
+
+              </div>
+            }
 
 
-            </div>
           </div>
+        </div>
       </React.Fragment>
     );
   }
 }
 
-export default Memoria;
+export default Memory;

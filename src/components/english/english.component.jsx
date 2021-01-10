@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import "./ingles.style.sass";
+import "./english.style.sass";
 
-class Ingles extends Component {
+class English extends Component {
     constructor(props) {
         super(props);
 
@@ -2088,7 +2088,7 @@ class Ingles extends Component {
         ]
         return (
             <div id="ingles">
-                <h1>Ingles</h1>
+                <h1>Ingles / English</h1>
 
                 {!this.state.words &&
                     <div id="choose">
@@ -2169,4 +2169,4 @@ class Ingles extends Component {
     }
 }
 
-export default Ingles;
+export default English;
