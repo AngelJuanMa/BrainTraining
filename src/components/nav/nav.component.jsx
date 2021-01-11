@@ -9,6 +9,7 @@ class Nav extends Component {
             <div id="main">
                 <div id="header">
                     <h1>BRAIN TRAINING</h1>
+                    <span id="span1"><span id="span2"></span></span>
                 </div>
                 <div id="nav">
                     <div className="components" id="primero">

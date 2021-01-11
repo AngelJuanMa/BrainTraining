@@ -1,6 +1,14 @@
 {
-  "short_name": "Brain Training",
-  "name": "Quieres memorizar más rápido, aprender palabras en ingles o aprender ortografía...",
+  "name": "Brain Training",
+  "short_name": "BrainTraining",
+  "description": "Quieres memorizar más rápido, aprender palabras en ingles o aprender ortografía...",
+  "background_color": "#181818",
+  "theme_color": "black",
+  "orientation": "portrait",
+  "display": "standalone",
+  "start_url": "index.html?utm_source=web_app_manifest",
+  "scope": "./",
+  "lang": "es-ES",
   "icons": [
     {
       "src": "favicon.ico",
@@ -17,9 +25,5 @@
       "type": "image/png",
       "sizes": "512x512"
     }
-  ],
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  ]
 }
